@@ -1,0 +1,3 @@
+COMPANY (code_company, name, symbol, entery_price)
+USER (code_user, nickname, email, password)
+FOLLOW (#code_company, #code_user)

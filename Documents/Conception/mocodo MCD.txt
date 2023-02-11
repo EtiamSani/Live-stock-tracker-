@@ -1,0 +1,4 @@
+USER : code_user, nickname, email , password
+:
+FOLLOW, 0N USER, ON COMPANY
+COMPANY : code_company, name, symbol, entery_price
