@@ -1,4 +1,7 @@
-USER : code_user, nickname, email , password
-:
-FOLLOW, 0N USER, ON COMPANY
 COMPANY : code_company, name, symbol, entery_price
+BELONG, ON COMPANY, ON WATCH_LIST
+WATCH_LIST : code_list,name
+HAVE, 0N USER, ON WATCH_LIST
+USER : code_user, nickname, email , password
+
+wireframe link : https://wireframe.cc/MbqLEM
