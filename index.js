@@ -15,9 +15,11 @@ app.use(cors());
 
 
 const priceRouter = require('./app/routers/priceRouter');
+const watchListRouter =require('./app/routers/watchListRouter')
 
 
 app.use('/price', priceRouter);
+app.use('/watchlist',watchListRouter);
 
 
 // middleware 404

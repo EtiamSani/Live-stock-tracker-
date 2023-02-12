@@ -23,7 +23,9 @@ CREATE TABLE "user"
 CREATE TABLE "watch_list" 
 (
     "code_list" SERIAL PRIMARY KEY,
-    "name" VARCHAR(255) NOT NULL   
+    "name" VARCHAR(255) NOT NULL,
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    "updated_at" TIMESTAMPTZ NOT NULL DEFAULT NOW()   
 );
 
 CREATE TABLE "watch_list_company"
