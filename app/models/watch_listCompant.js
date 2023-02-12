@@ -25,8 +25,8 @@ Watch_listCompany.init({
     },
 }, {
     sequelize,
-    tableName : "watch_list",
-    modelName : "Watch_list"
+    tableName : "watch_list_company",
+    timestamps: false
 });
 
 module.exports = Watch_listCompany;

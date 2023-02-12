@@ -1,13 +1,13 @@
-const Company = require('./Company');
-const User = require('./User');
-const Watch_list = require('./Watch_list');
-const Watch_listCompany = require('./Watch_listCompany');
-const UserWatchlist = require('./UserWatchlist');
+const Company = require('./company');
+const User = require('./user');
+const Watch_list = require('./watch_list');
+const Watch_listCompany = require('./watch_listCompant');
+const UserWatchlist = require('./userWatchlist');
 
 
 //relation N:N many to many Company et watchlist 
-Company.belongsToMany(Watch_list, {through: Watch_listCompany});
 Watch_list.belongsToMany(Company, {through: Watch_listCompany});
+Company.belongsToMany(Watch_list, {through: Watch_listCompany});
 
 
 //relation N:N many to many user et watchlist 

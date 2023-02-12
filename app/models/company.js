@@ -14,7 +14,7 @@ Company.init({
         allowNull : false
     },
     entry_price: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull : true,
     },
     logo : {
