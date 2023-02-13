@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cors());
 
 
-
+require('./app/models/models')
 
 const priceRouter = require('./app/routers/priceRouter');
 const watchListRouter =require('./app/routers/watchListRouter')

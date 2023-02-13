@@ -12,7 +12,7 @@ Watch_listCompany.init({
         field: 'company_id',
         references : { 
             model: Company,
-            key : 'id'
+            key : 'code_company'
         }
     },
     list_id: { 
@@ -20,7 +20,7 @@ Watch_listCompany.init({
         field: 'list_id',
         references : { 
             model: Watch_list,
-            key : 'id'
+            key : 'code_list'
         }
     },
 }, {

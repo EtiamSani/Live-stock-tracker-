@@ -6,8 +6,8 @@ const UserWatchlist = require('./userWatchlist');
 
 
 //relation N:N many to many Company et watchlist 
-Watch_list.belongsToMany(Company, {through: Watch_listCompany});
-Company.belongsToMany(Watch_list, {through: Watch_listCompany});
+Watch_list.belongsToMany(Company, {through: Watch_listCompany , foreignKey: 'company_id'});
+Company.belongsToMany(Watch_list, {through: Watch_listCompany , foreignKey: 'list_id'});
 
 
 //relation N:N many to many user et watchlist 

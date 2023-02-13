@@ -5,6 +5,10 @@ const sequelize = require('../database');
 class Company extends Model { }
 
 Company.init({
+    code_company: { 
+        type: DataTypes.INTEGER,
+        primaryKey : true,
+    },
     name: { 
         type: DataTypes.STRING,
         allowNull : false
@@ -24,7 +28,9 @@ Company.init({
 }, {
     sequelize,
     tableName : "company",
-    modelName : "Company"
+    modelName : "Company",
+    timestamps : false
+    
 });
 
 

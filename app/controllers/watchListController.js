@@ -40,12 +40,12 @@ const watchListController = {
         }
     },
     // TODO 
-    findOneList : async (req,res) => {
+    findOneListWithStocks : async (req,res) => {
         const listId = Number(req.params.listId);
 
         try {
             const list = await Watch_list.findByPk(listId,{
-                include: [{ association : Company, through: Watch_listCompany }]
+                include:  Company 
                
                 
             });
