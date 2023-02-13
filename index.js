@@ -16,10 +16,12 @@ require('./app/models/models')
 
 const priceRouter = require('./app/routers/priceRouter');
 const watchListRouter =require('./app/routers/watchListRouter')
+const companyRouter = require('./app/routers/companyRouter')
 
 
 app.use('/price', priceRouter);
 app.use('/watchlist',watchListRouter);
+app.use('/company',companyRouter);
 
 
 // middleware 404
