@@ -39,7 +39,6 @@ const watchListController = {
             errors.error500(res, err);
         }
     },
-    // TODO 
     findOneListWithStocks : async (req,res) => {
         const listId = Number(req.params.listId);
 
@@ -50,6 +49,18 @@ const watchListController = {
                 
             });
             res.json(list)
+        }catch(err) {
+            errors.error500(res, err);
+        }
+    },
+    deleteList : async (req,res) => { 
+        const listId = Number(req.params.listId);
+
+        try {
+            const listToDelet = await Watch_list.findByPk(listId);
+            await listToDelet.destroy()
+            res.json(listToDelet);
+
         }catch(err) {
             errors.error500(res, err);
         }
