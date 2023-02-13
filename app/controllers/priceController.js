@@ -8,6 +8,7 @@ const priceController = {
         try {    
         const response = await axios.get(`${URL_API}${symbol}&interval=1min&apikey=${API_KEY}`)    
         const stockPrice = response.data["Time Series (1min)"]
+        console.log(stockPrice)
         const lastPrice = Object.values(stockPrice)
         res.json(lastPrice[0]["4. close"])
         } catch (error) {

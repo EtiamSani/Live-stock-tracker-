@@ -45,7 +45,7 @@ const watchListController = {
 
         try {
             const list = await Watch_list.findByPk(listId,{
-                include: [{ model: Company, through: Watch_listCompany }]
+                include: [{ association : Company, through: Watch_listCompany }]
                
                 
             });
