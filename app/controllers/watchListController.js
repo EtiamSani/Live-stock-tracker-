@@ -1,6 +1,5 @@
 const Watch_list = require('../models/watch_list');
 const Company = require('../models/company');
-const Watch_listCompany = require('../models/watch_listCompant')
 const errors = require('../modules/errors');
 
 const watchListController = { 
