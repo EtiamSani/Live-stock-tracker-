@@ -9,6 +9,8 @@ const companyController = require('../controllers/companyController');
 companyRouter.get('/', companyController.getAllCompany);
 companyRouter.get('/:companyId', companyController.getOneCompany);
 companyRouter.post('/', companyController.creatCompany);
+companyRouter.delete('/:companyId', companyController.deleteCompany);
+companyRouter.put('/:companyId', companyController.updateEntryPrice);
 
 
 

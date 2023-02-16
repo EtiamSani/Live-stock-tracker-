@@ -41,6 +41,34 @@ const companyController = {
                 errors.error500(res, err);
             }
     },
+    deleteCompany :  async (req,res) => {
+        const companyId = Number(req.params.companyId);
+        try {
+            const deleteCompany = await Company.findByPk(companyId,{
+                include:  Watch_list
+            })
+            await deleteCompany.destroy()
+            res.json(deleteCompany)
+            }catch(err) {
+                errors.error500(res, err);
+            }
+    },
+    updateEntryPrice : async (req,res) => {
+        const companyId = Number(req.params.companyId);
+       
+        const enteryPriceData = {
+            entry_price: req.body.entry_price, 
+            
+        }
+        try {
+            const entryPrice = await Company.findByPk(companyId);
+            
+            await entryPrice.update(enteryPriceData);
+            res.json(entryPrice)
+        } catch(err) {
+            errors.error500(res, err);
+        }
+    },
 }
 
 module.exports = companyController
