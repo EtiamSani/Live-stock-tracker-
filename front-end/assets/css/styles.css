@@ -1,14 +1,14 @@
 .control {
     width: 100%;
 }
-.input {
+.search-bar {
     width: 50%;
     display: block;
     margin: 2rem auto;
 }
 
 .watchlist-container {
-    width: 60%;
+    width: 45%;
     margin: auto;
 }
 
@@ -16,3 +16,66 @@
     display: flex;
 }
 
+.watchlist-company__logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.watchlist-company__company-symbol {
+    font-weight: bold;
+}
+
+.watchlist-company__company-price { 
+    text-align: right;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+.watchlist-company__company-price-change-container {
+    margin-top: -0.7rem;
+}
+
+.watchlist-company__company-data {
+    margin-left: 4rem;
+}
+
+.watchlist-company__company-entryprice {
+    display: flex;
+    align-items: center;
+    margin-left: 3rem;
+}
+
+.entryprice { 
+    font-size: 1.7rem;
+}
+
+.entryprice-input {
+    margin: 0;
+    width: 5rem;
+}
+
+.watchlist-company__company-price-change-pourcent {
+    margin-left: 0.6rem;
+}
+
+.delete, .fa-pen {
+    margin-left: 0.7rem;
+}
+
+.watchlist-company-card { 
+    width: 100%;
+    margin: auto;
+}
+
+.entery-price-header {
+    margin-left: 32rem;
+}
+
+.fa-magnifying-glass {
+   left: 30rem;
+   position: relative;
+}

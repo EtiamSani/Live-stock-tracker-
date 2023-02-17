@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ccc9ee74e2.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <title>Document</title>
@@ -53,8 +54,13 @@
 <!-- ///////////////////////////////// NAV //////////////////////////// -->
 <body>
 <!-- =============== INPUT  -->
-<div class="control is-loading">
-    <input class="input is-rounded is-small" type="text" placeholder="Rounded input">
+<div class="field">
+<div class="control has-icons-left">
+  <input class="input is-rounded is-medium search-bar" type="text" placeholder="Search symbol : AAPL, IBM">
+  <span class="icon is-small is-left">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </span>
+</div>
 </div>
 <!-- =============== INPUT  -->
 
@@ -66,11 +72,14 @@
     <button class="button is-link">my stock list 2</button>
   </div >
   <div class="box">
-  Entry price
-    <div class="box">
+  <div class="entery-price-header">
+    <h4>Entry price</h4>
+  </div>
+  
+    <div class="box watchlist-company-card">
       <div class="watchlist-company">
-        <div class="watchlist-company__logo">
-          LOGO
+        <div class="watchlist-company__logo-container">
+          <img class="watchlist-company__logo" src="https://asset.brandfetch.io/id2Uhd55hJ/idj-LwE9OQ.jpeg" alt="alternatetext"> 
         </div>
         <div class="watchlist-company__company-informations">
           <div class="watchlist-company__company-symbol">
@@ -97,14 +106,15 @@
         </div>
         </div>
         <div class="watchlist-company__company-entryprice">
-          50 € 
-          <input class="input is-small" type="text" placeholder="Text input">
+        <div class="entryprice">50 € </div>
+        <input class="input is-small entryprice-input" type="text" placeholder="Text input">
+        <i class="fa-solid fa-pen"></i>
+        <button class="delete is-medium"></button>
         </div>
       </div>
     </div>
-    <div class="box">
-      company
-    </div>
+
+    
 </div>
 </div>
     <h1></h1>
