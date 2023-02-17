@@ -6,3 +6,13 @@
     display: block;
     margin: 2rem auto;
 }
+
+.watchlist-container {
+    width: 60%;
+    margin: auto;
+}
+
+.watchlist-company, .watchlist-company__company-data, .watchlist-company__company-price-change-container { 
+    display: flex;
+}
+
