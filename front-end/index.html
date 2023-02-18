@@ -67,15 +67,19 @@
 <!-- =============== BUTTON  -->
 <div class="watchlist-container">
 <div class="buttons">
-    <button class="button is-primary">+ Add list</button>
+    <button class="button is-primary" id="addWatchListModal">+ Add list</button>
     <button class="button is-link">my stock list 1</button>
     <button class="button is-link">my stock list 2</button>
   </div >
+<!-- =============== BUTTON  -->
+
+
+<!-- =============== LIST  -->
   <div class="box">
   <div class="entery-price-header">
     <h4>Entry price</h4>
   </div>
-  
+  <!-- =============== COMPANY CARD  -->
     <div class="box watchlist-company-card">
       <div class="watchlist-company">
         <div class="watchlist-company__logo-container">
@@ -107,17 +111,38 @@
         </div>
         <div class="watchlist-company__company-entryprice">
         <div class="entryprice">50 € </div>
-        <input class="input is-small entryprice-input" type="text" placeholder="Text input">
+        <form method="POST">
+        <input class="input is-small entryprice-input is-hidden" type="text" placeholder="Text input">
         <i class="fa-solid fa-pen"></i>
+      </form>
         <button class="delete is-medium"></button>
         </div>
       </div>
     </div>
+     <!-- =============== COMPANY CARD  -->
+</div>
+</div>
 
-    
+ <!-- =============== LIST MODAL  -->
+
+ <div class="modal" id="watchListModal" >
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <div class="box">
+      <button class="delete watchlist-modal-close-button" aria-label="close"></button>
+      <h3>Add a new watchlist</h3>
+    <input class="input is-link" type="text" placeholder="New watchlist name...">
+    <div class="buttons form-buttons">
+      <button class="button is-primary">Save</button>
+      <button class="button is-link">Cancel</button>
+    </div>
+  </div>
+  </div>
 </div>
-</div>
+<!-- =============== LIST MODAL  -->
     <h1></h1>
     <script src="../front-end/assets/js/app.js"></script>
+    <script src="../front-end/assets/js/watchList.js"></script>
+    <script src="../front-end/assets/js/companyCards.js"></script>
 </body>
 </html>

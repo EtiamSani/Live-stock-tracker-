@@ -79,3 +79,11 @@
    left: 30rem;
    position: relative;
 }
+
+.form-buttons { 
+    margin-top: 1rem;
+}
+
+.watchlist-modal-close-button {
+    margin-left: 36rem;
+}
