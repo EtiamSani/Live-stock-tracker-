@@ -14,14 +14,16 @@ app.use(cors());
 
 require('./app/models/models')
 
-const priceRouter = require('./app/routers/priceRouter');
+
 const watchListRouter =require('./app/routers/watchListRouter')
 const companyRouter = require('./app/routers/companyRouter')
+const alphaVantageApiRouter = require('./app/routers/alphaVantageApiRouter')
 
 
-app.use('/price', priceRouter);
+
 app.use('/watchlist',watchListRouter);
 app.use('/company',companyRouter);
+app.use('/tickersearch',alphaVantageApiRouter)
 
 
 // middleware 404
