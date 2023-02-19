@@ -18,7 +18,6 @@ autoCompletionSearchBar = {
         const reponse = await fetch(app.base_url + "/tickersearch/" + query)
         reponseJson = await reponse.json();
             if (reponseJson) {
-        
         for (const results of reponseJson) {
             const div = document.createElement("div")
             div.classList.add('search-result')
@@ -28,10 +27,14 @@ autoCompletionSearchBar = {
             div.append(newLiInSearchBarForSymbol, newLiInSearchBarForName)
             ul.appendChild(div)
         }
-    }
+    } else {
+        console.error('JSON data is empty');
+      }
+    
     } else {
         e.target.value = '';
         autoCompletionSearchBar.removeLiInSearchBar();
+        
     }
         } catch (error) {
             console.error('Error fetching data:', error);
