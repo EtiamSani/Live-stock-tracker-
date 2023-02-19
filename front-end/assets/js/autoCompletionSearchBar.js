@@ -6,6 +6,7 @@ autoCompletionSearchBar = {
         li.innerText = text;
         return li
     },
+    // TODO 
     companySearchResults : async function (e) {
         const query = e.target.value;
         const ul = document.getElementById("suggestions");
