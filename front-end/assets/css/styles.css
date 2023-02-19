@@ -87,3 +87,17 @@
 .watchlist-modal-close-button {
     margin-left: 36rem;
 }
+
+.search-result {
+    display: flex;
+    text-align: left;
+    
+}
+
+.search-result:hover {
+    background-color: antiquewhite;
+}
+
+.search-li {
+    margin-left: 3rem;
+}
