@@ -56,10 +56,15 @@
 <!-- =============== INPUT  -->
 <div class="field">
 <div class="control has-icons-left">
-  <input class="input is-rounded is-medium search-bar" type="text" placeholder="Search symbol : AAPL, IBM">
+  <form id="searchBarId">
+    <div>
+      <input class="input is-rounded is-medium search-bar" type="text" placeholder="Search symbol : AAPL, IBM">
+      <ul id="suggestions" ></ul>
+    </div>
   <span class="icon is-small is-left">
     <i class="fa-solid fa-magnifying-glass"></i>
   </span>
+</form>
 </div>
 </div>
 <!-- =============== INPUT  -->
@@ -146,5 +151,6 @@
     <script src="../front-end/assets/js/app.js"></script>
     <script src="../front-end/assets/js/watchList.js"></script>
     <script src="../front-end/assets/js/companyCards.js"></script>
+    <script src="../front-end/assets/js/autoCompletionSearchBar.js"></script>
 </body>
 </html>

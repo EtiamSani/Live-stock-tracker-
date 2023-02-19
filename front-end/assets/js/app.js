@@ -26,6 +26,9 @@ app = {
 
         const submitEntryPriceInput = document.querySelector('.entryprice-input');
         submitEntryPriceInput.addEventListener('submit', companyCards.hideEntryPriceInput);
+
+        const searchBarInputListener = document.querySelector('.search-bar');
+        searchBarInputListener.addEventListener('input', autoCompletionSearchBar.companySearchResults)
     }    
 }
 
