@@ -95,6 +95,7 @@
     border: 1px solid #ccc;
     border-top: none;
     z-index: 999;
+    padding: 0.7rem;
   }
 
 
@@ -103,10 +104,25 @@
 
 }
 
-.search-li {
+/* .search-li {
     margin-left: 3rem;
-}
+} */
 
 .input {
     margin-bottom: 0;
 }
+
+.search-result-name {
+  display: inline-block;
+  width: 50rem; 
+  text-align: left;
+ 
+}
+
+.search-result-symbol {
+   margin-left: 2rem;
+   font-weight: bold;
+   text-align: left;
+}
+
+

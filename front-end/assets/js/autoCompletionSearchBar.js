@@ -18,21 +18,29 @@ autoCompletionSearchBar = {
         const reponse = await fetch(app.base_url + "/tickersearch/" + query)
         reponseJson = await reponse.json();
             if (reponseJson) {
-        for (const results of reponseJson) {
-            const div = document.createElement("div")
-            div.classList.add('search-result')
-            
-            const newLiInSearchBarForSymbol = autoCompletionSearchBar.creatLiInSearchBar(results["1. symbol"])
-            const newLiInSearchBarForName = autoCompletionSearchBar.creatLiInSearchBar(results["2. name"])
-            div.append(newLiInSearchBarForSymbol, newLiInSearchBarForName)
-            ul.appendChild(div)
-        }
+                for (const results of reponseJson) {
+                    const div = document.createElement("div");
+                    div.classList.add('search-result');
+                
+                    const divSymbol = document.createElement("div");
+                    divSymbol.classList.add('search-result-symbol');
+                    const newLiInSearchBarForSymbol = autoCompletionSearchBar.creatLiInSearchBar(results["1. symbol"] + " " + "||" );
+                    divSymbol.appendChild(newLiInSearchBarForSymbol);
+                
+                    const divName = document.createElement("div");
+                    divName.classList.add('search-result-name');
+                    const newLiInSearchBarForName = autoCompletionSearchBar.creatLiInSearchBar(" " +results["2. name"] + " ");
+                    divName.appendChild(newLiInSearchBarForName);
+                
+                    div.append(divSymbol, divName);
+                    ul.appendChild(div);
+                }
     } else {
         console.error('JSON data is empty');
       }
     
     } else {
-        e.target.value = '';
+        // e.target.value = '';
         autoCompletionSearchBar.removeLiInSearchBar();
         
     }
