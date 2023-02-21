@@ -21,14 +21,17 @@ app = {
         const closeWatchListModalButton = document.querySelector('.watchlist-modal-close-button');
         closeWatchListModalButton.addEventListener('click',watchList.hideAddWatchListModal);
 
-        const updatePensilIcon = document.querySelector('.fa-pen');
-        updatePensilIcon.addEventListener('click',companyCards.showEntryPriceInput)
+        // const updatePensilIcon = document.querySelector('.fa-pen');
+        // updatePensilIcon.addEventListener('click',companyCards.showEntryPriceInput)
 
-        const submitEntryPriceInput = document.querySelector('.entryprice-input');
-        submitEntryPriceInput.addEventListener('submit', companyCards.hideEntryPriceInput);
+        // const submitEntryPriceInput = document.querySelector('.entryprice-input');
+        // submitEntryPriceInput.addEventListener('submit', companyCards.hideEntryPriceInput);
 
         const searchBarInputListener = document.querySelector('.search-bar');
         searchBarInputListener.addEventListener('input', autoCompletionSearchBar.companySearchResults)
+
+        const addListForm = document.querySelector('#watchListModal form');
+        addListForm.addEventListener('submit',watchList.handleAddListForm);
     }    
 }
 

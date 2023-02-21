@@ -7,6 +7,7 @@ Watch_list.init({
     code_list: {
         type: DataTypes.INTEGER,
         primaryKey : true,
+        autoIncrement: true
 
     },
     name: {

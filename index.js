@@ -3,6 +3,8 @@ require('dotenv').config();
 const express = require('express');
 const PORT = process.env.PORT || 1337;
 const cors = require('cors');
+const multer = require('multer');
+const bodyParser = multer();
 const app = express();
 
 
@@ -10,6 +12,7 @@ app.use(express.json());
 
 
 app.use(cors());
+app.use( bodyParser.none() );
 
 
 require('./app/models/models')
