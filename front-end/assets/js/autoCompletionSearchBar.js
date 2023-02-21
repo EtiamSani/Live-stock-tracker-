@@ -21,18 +21,23 @@ autoCompletionSearchBar = {
                 for (const results of reponseJson) {
                     const div = document.createElement("div");
                     div.classList.add('search-result');
-                
+                    
                     const divSymbol = document.createElement("div");
                     divSymbol.classList.add('search-result-symbol');
-                    const newLiInSearchBarForSymbol = autoCompletionSearchBar.creatLiInSearchBar(results["1. symbol"] + " " + "||" );
+                    const newLiInSearchBarForSymbol = autoCompletionSearchBar.creatLiInSearchBar(results["1. symbol"] );
                     divSymbol.appendChild(newLiInSearchBarForSymbol);
                 
                     const divName = document.createElement("div");
                     divName.classList.add('search-result-name');
-                    const newLiInSearchBarForName = autoCompletionSearchBar.creatLiInSearchBar(" " +results["2. name"] + " ");
+                    const newLiInSearchBarForName = autoCompletionSearchBar.creatLiInSearchBar(results["2. name"] );
                     divName.appendChild(newLiInSearchBarForName);
+
+                    const divType = document.createElement("div");
+                    divType.classList.add('search-result-type');
+                    const newLiInSearchBarForType = autoCompletionSearchBar.creatLiInSearchBar(results["3. type"] );
+                    divType.appendChild(newLiInSearchBarForType);
                 
-                    div.append(divSymbol, divName);
+                    div.append(divName, divSymbol,divType);
                     ul.appendChild(div);
                 }
     } else {
