@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 const watchList = {
     showAddWatchListModal: function () {
         const addWatchListModal = document.querySelector("#watchListModal");
@@ -23,5 +25,12 @@ const watchList = {
             body: formData
         })
 
+    },
+    getWatchListFromApi : async function () {
+        const response = await fetch(app.base_url + "/watchlist");
+        const reponseJson = await response.json()
+        for (const watchlist of reponseJson) {
+            watchList.makeList(watchlist)
+        }
     }
 }
