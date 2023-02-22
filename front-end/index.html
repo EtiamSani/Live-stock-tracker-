@@ -77,7 +77,14 @@
   </div >
   <div class="button-container "></div>
   <template class="template-watchlist-name-button">
+    <div class="watchlist-item">
     <button class="button is-link watchlist-name-button" data-list-id ="A"></button>
+    <div class="input-container">
+    <form class="update-watchlist-form" method="POST">
+      <input class="input is-small update-input is-hidden" name="name" type="text" placeholder="New watchlist name...">
+    </form>
+  </div>
+</div>
   </template>
 </div>
 <!-- =============== BUTTON  -->

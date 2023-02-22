@@ -41,17 +41,25 @@ const watchList = {
     
         const watchListNamebuttonTemplate = document.querySelector('.template-watchlist-name-button');
         const newWatchListNameButton = document.importNode(watchListNamebuttonTemplate.content,true);
-        newWatchListNameButton.querySelector('.watchlist-name-button').innerHTML =  `${watchListName.name} <i class="fa-solid fa-delete-left"></i> `;
+        newWatchListNameButton.querySelector('.watchlist-name-button').innerHTML =  `${watchListName.name} <i class="fa-solid fa-pen pen-for-update"></i> <i class="fa-solid fa-delete-left"></i> `;
         
         newWatchListNameButton.querySelector('.fa-delete-left').addEventListener('click', watchList.deleteWatchList);
-        newWatchListNameButton.querySelector('.watchlist-name-button').dataset.listId = watchListName.code_list
+        newWatchListNameButton.querySelector('.watchlist-name-button').dataset.listId = watchListName.code_list;
+
+        // newWatchListNameButton.querySelector('.fa-solid').addEventListener('click', watchList.updateWatchListName);
+
+       newWatchListNameButton.querySelector('.fa-pen').addEventListener('click', watchList.showInputUpdateWatchListName);
+       newWatchListNameButton.querySelector('.update-watchlist-form').addEventListener('submit', watchList.updateWatchListName);
+
+
+       
         
         document.querySelector('.button-container').append(newWatchListNameButton);
 
        
     },
     deleteWatchList : async function (event) {
-        console.log('BOUU')
+        
         const watchlist = event.target.closest('.watchlist-name-button')
         console.log(watchlist)
         const idWatchList = watchlist.dataset.listId
@@ -61,5 +69,24 @@ const watchList = {
            
         })
         watchList.getWatchListFromApi()
+    },
+    updateWatchListName : async function (event) {
+        console.log('BAAAAAAAAA')
+        event.preventDefault()
+    
+        
+        const formData = new FormData(event.target)
+    
+        console.log("Yaaa" + formData.get("id"))
+        console.log(formData.get("name"))
+    },
+    showInputUpdateWatchListName : function (event) {
+
+        const button = event.target; 
+        const input = button.parentElement.nextElementSibling.querySelector('.update-input'); 
+        input.classList.remove('is-hidden'); 
+        
+    
+    
     }
 }
