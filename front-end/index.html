@@ -73,22 +73,26 @@
 <div class="watchlist-container">
 <div class="buttons">
     <button class="button is-primary" id="addWatchListModal">+ Add list</button>
-    <button class="button is-link">my stock list 1</button>
-    <button class="button is-link">my stock list 2</button>
+    
   </div >
+  <div class="button-container "></div>
+  <template class="template-watchlist-name-button">
+    <button class="button is-link watchlist-name-button"></button>
+  </template>
+</div>
 <!-- =============== BUTTON  -->
 
 
 <!-- =============== LIST  -->
 <template id="watchListColumn">
-  <div class="box">
+  <div class="box" data-list-id ="A" >
   <div class="entery-price-header">
     <h4>Entry price</h4>
   </div>
   
 </div>
 </template>
-</div>
+
 
 
 <!-- =============== COMPANY CARD  -->

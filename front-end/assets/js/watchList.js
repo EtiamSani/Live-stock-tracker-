@@ -1,4 +1,4 @@
-const { response } = require("express");
+
 
 const watchList = {
     showAddWatchListModal: function () {
@@ -30,7 +30,35 @@ const watchList = {
         const response = await fetch(app.base_url + "/watchlist");
         const reponseJson = await response.json()
         for (const watchlist of reponseJson) {
-            watchList.makeList(watchlist)
+            
+            watchList.watchListNameButtons(watchlist)
+
         }
+    },
+    watchListNameButtons : function (watchListName) {
+    
+        const watchListNamebuttonTemplate = document.querySelector('.template-watchlist-name-button');
+        const newWatchListNameButton = document.importNode(watchListNamebuttonTemplate.content,true);
+        newWatchListNameButton.querySelector('.watchlist-name-button').innerHTML =  `${watchListName.name} <i class="fa-solid fa-delete-left"></i> `;
+        
+        newWatchListNameButton.querySelector('.fa-delete-left').addEventListener('click', watchList.deleteWatchList);
+        console.log(newWatchListNameButton)
+        // console.log(deleteButtons)
+        document.querySelector('.button-container').append(newWatchListNameButton);
+
+        // for (const oneWatchListdeleteButton of deleteButtons) {
+        //     console.log(deleteButtons)
+        //     oneWatchListdeleteButton.addEventListener('click', watchList.deleteWatchList);
+        // }
+    },
+    deleteWatchList : async function (event) {
+        console.log('BOUU')
+        // const watchlist = event.target.closest('.')
+        // const idWatchList = 
+        // await fetch(app.base_url + "/watchlist", {
+        //     method: 'DELETE',
+           
+        // })
+
     }
 }
