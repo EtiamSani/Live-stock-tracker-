@@ -34,7 +34,7 @@ app = {
         const addListForm = document.querySelector('#watchListModal form');
         addListForm.addEventListener('submit',watchList.handleAddListForm);
 
-        
+
     }    
 }
 

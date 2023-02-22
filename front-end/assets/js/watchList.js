@@ -24,15 +24,17 @@ const watchList = {
             method: 'POST',
             body: formData
         })
-
+        watchList.getWatchListFromApi()
     },
     getWatchListFromApi : async function () {
+        const watchListButtonContainer = document.querySelector('.button-container')
         const response = await fetch(app.base_url + "/watchlist");
         const reponseJson = await response.json()
+        watchListButtonContainer.innerHTML =""
         for (const watchlist of reponseJson) {
             
             watchList.watchListNameButtons(watchlist)
-
+            
         }
     },
     watchListNameButtons : function (watchListName) {
@@ -42,23 +44,22 @@ const watchList = {
         newWatchListNameButton.querySelector('.watchlist-name-button').innerHTML =  `${watchListName.name} <i class="fa-solid fa-delete-left"></i> `;
         
         newWatchListNameButton.querySelector('.fa-delete-left').addEventListener('click', watchList.deleteWatchList);
-        console.log(newWatchListNameButton)
-        // console.log(deleteButtons)
+        newWatchListNameButton.querySelector('.watchlist-name-button').dataset.listId = watchListName.code_list
+        
         document.querySelector('.button-container').append(newWatchListNameButton);
 
-        // for (const oneWatchListdeleteButton of deleteButtons) {
-        //     console.log(deleteButtons)
-        //     oneWatchListdeleteButton.addEventListener('click', watchList.deleteWatchList);
-        // }
+       
     },
     deleteWatchList : async function (event) {
         console.log('BOUU')
-        // const watchlist = event.target.closest('.')
-        // const idWatchList = 
-        // await fetch(app.base_url + "/watchlist", {
-        //     method: 'DELETE',
+        const watchlist = event.target.closest('.watchlist-name-button')
+        console.log(watchlist)
+        const idWatchList = watchlist.dataset.listId
+        console.log(idWatchList)
+        await fetch(app.base_url + "/watchlist/" + idWatchList, {
+            method: 'DELETE',
            
-        // })
-
+        })
+        watchList.getWatchListFromApi()
     }
 }
