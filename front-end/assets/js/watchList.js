@@ -71,14 +71,23 @@ const watchList = {
         watchList.getWatchListFromApi()
     },
     updateWatchListName : async function (event) {
-        console.log('BAAAAAAAAA')
+        
         event.preventDefault()
     
         
         const formData = new FormData(event.target)
+        const idWatchList = event.target.closest('.watchlist-item').querySelector('.watchlist-name-button').dataset.listId;
+        
+        await fetch(app.base_url + "/watchlist/" + idWatchList, {
+            method: 'PUT',
+            body: formData
+        })
+        watchList.getWatchListFromApi()
+
     
-        console.log("Yaaa" + formData.get("id"))
-        console.log(formData.get("name"))
+        const inputElement = event.target[0];
+        inputElement.value = "";
+        inputElement.focus();
     },
     showInputUpdateWatchListName : function (event) {
 
