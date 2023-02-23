@@ -1,6 +1,8 @@
 
 
 const watchList = {
+    watchListDisplayed : false,
+
     showAddWatchListModal: function () {
         const addWatchListModal = document.querySelector("#watchListModal");
         addWatchListModal.classList.add('is-active');
@@ -10,9 +12,22 @@ const watchList = {
         closeWatchListModal.classList.remove('is-active');
         closeWatchListModal.classList.add('is-hidden');
     },
-    makeList : function (watchListObject) {
-        const template = document.querySelector('#watchListColumn');
-        const copieWatchList = document.importNode(template.textContent, true);
+    makeWatchList : function (watchListObject) {
+
+        if (watchList.watchListDisplayed) {
+            return;
+          }
+
+        const watchListTemplate = document.querySelector('#watchListColumn');
+        const newWatchList = document.importNode(watchListTemplate.content, true);
+        const watchLists = document.querySelector('.watch-lists');
+        if (watchLists) {
+            watchLists.appendChild(newWatchList);
+            watchList.watchListDisplayed = true;
+          } 
+        
+        document.querySelector('.watch-lists').append(newWatchList);
+        
         
     },
     handleAddListForm : async function (event) {
@@ -46,10 +61,12 @@ const watchList = {
         newWatchListNameButton.querySelector('.fa-delete-left').addEventListener('click', watchList.deleteWatchList);
         newWatchListNameButton.querySelector('.watchlist-name-button').dataset.listId = watchListName.code_list;
 
-        // newWatchListNameButton.querySelector('.fa-solid').addEventListener('click', watchList.updateWatchListName);
 
        newWatchListNameButton.querySelector('.fa-pen').addEventListener('click', watchList.showInputUpdateWatchListName);
        newWatchListNameButton.querySelector('.update-watchlist-form').addEventListener('submit', watchList.updateWatchListName);
+
+       newWatchListNameButton.querySelector('.watchlist-item').addEventListener('click', watchList.findAwatchListWithCompanies);
+       
 
 
        
@@ -94,8 +111,19 @@ const watchList = {
         const button = event.target; 
         const input = button.parentElement.nextElementSibling.querySelector('.update-input'); 
         input.classList.remove('is-hidden'); 
+    },
+    findAwatchListWithCompanies : async function (event) {
         
-    
-    
+        const idWatchList = event.target.closest('.watchlist-item').querySelector('.watchlist-name-button').dataset.listId;
+        
+        const response = await fetch(app.base_url + "/watchlist/" + idWatchList);
+        const reponseJson = await response.json()
+        watchList.makeWatchList(reponseJson)
+        for (const companies of reponseJson.Companies) {
+            console.log(companies)
+            companyCards.makeCompanyCard(companies)
+            
+        }
+        
     }
 }

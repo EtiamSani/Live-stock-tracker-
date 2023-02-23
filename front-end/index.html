@@ -86,64 +86,67 @@
   </div>
 </div>
   </template>
-</div>
-<!-- =============== BUTTON  -->
-
-
-<!-- =============== LIST  -->
-<template id="watchListColumn">
-  <div class="box"  >
-  <div class="entery-price-header">
-    <h4>Entry price</h4>
-  </div>
+  <!-- =============== BUTTON  -->
   
-</div>
-</template>
+  
+  <!-- =============== LIST  -->
+  
+  <template id="watchListColumn">
+    <div class="box">
+      <div class="entery-price-header">
+        <h4>Entry price</h4>
+      </div>
+    </div>
+  </template>
+  <div class="watch-lists"></div>
+
 
 
 
 <!-- =============== COMPANY CARD  -->
-<template>
-<div class="box watchlist-company-card">
-  <div class="watchlist-company">
-    <div class="watchlist-company__logo-container">
-      <img class="watchlist-company__logo" src="https://asset.brandfetch.io/id2Uhd55hJ/idj-LwE9OQ.jpeg" alt="alternatetext"> 
-    </div>
-    <div class="watchlist-company__company-informations">
-      <div class="watchlist-company__company-symbol">
-        DIM 
-      </div>
-      <div class="watchlist-company__company-name">
-        Sartorius Stedim biotech
-      </div>
-    </div>
-    <div class="watchlist-company__company-data">
-      <div class="watchlist-company__company-price-and-change">
-        <div class="watchlist-company__company-price">
-            90 € 
+    <template id="CompanyCardColumn">
+    <div class="box watchlist-company-card">
+      <div class="watchlist-company">
+        <div class="watchlist-company__logo-container">
+          <img class="watchlist-company__logo" src="https://asset.brandfetch.io/id2Uhd55hJ/idj-LwE9OQ.jpeg" alt="alternatetext"> 
         </div>
+        <div class="watchlist-company__company-informations">
+          <div class="watchlist-company__company-symbol">
+            DIM 
+          </div>
+          <div class="watchlist-company__company-name">
+            Sartorius Stedim biotech
+          </div>
+        </div>
+        <div class="watchlist-company__company-data">
+          <div class="watchlist-company__company-price-and-change">
+            <div class="watchlist-company__company-price">
+                90 € 
+            </div>
 
-        <div class="watchlist-company__company-price-change-container">
-        <div class="watchlist-company__company-price-change">
-          + 85 € 
+            <div class="watchlist-company__company-price-change-container">
+            <div class="watchlist-company__company-price-change">
+              + 85 € 
+            </div>
+            <div class="watchlist-company__company-price-change-pourcent">
+              87 % 
+            </div>
+          </div>
         </div>
-        <div class="watchlist-company__company-price-change-pourcent">
-          87 % 
+        </div>
+        <div class="watchlist-company__company-entryprice">
+        <div class="entryprice">50 € </div>
+        <form method="POST">
+        <input class="input is-small entryprice-input is-hidden" type="text" placeholder="Text input">
+        <i class="fa-solid fa-pen"></i>
+      </form>
+        <button class="delete is-medium"></button>
         </div>
       </div>
     </div>
-    </div>
-    <div class="watchlist-company__company-entryprice">
-    <div class="entryprice">50 € </div>
-    <form method="POST">
-    <input class="input is-small entryprice-input is-hidden" type="text" placeholder="Text input">
-    <i class="fa-solid fa-pen"></i>
-  </form>
-    <button class="delete is-medium"></button>
-    </div>
+    </template>
+    <div class="company-cards"></div>
   </div>
-</div>
-</template>
  <!-- =============== COMPANY CARD  -->
 
  <!-- =============== LIST MODAL  -->
