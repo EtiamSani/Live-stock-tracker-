@@ -33,8 +33,7 @@ const watchList = {
     handleAddListForm : async function (event) {
         event.preventDefault();
         const formData = new FormData(event.target);
-        console.log(formData.get("name"))
-        console.log(formData.get('code_list'))
+       
         await fetch(app.base_url + "/watchlist", {
             method: 'POST',
             body: formData
@@ -78,9 +77,7 @@ const watchList = {
     deleteWatchList : async function (event) {
         
         const watchlist = event.target.closest('.watchlist-name-button')
-        console.log(watchlist)
         const idWatchList = watchlist.dataset.listId
-        console.log(idWatchList)
         await fetch(app.base_url + "/watchlist/" + idWatchList, {
             method: 'DELETE',
            
@@ -120,10 +117,7 @@ const watchList = {
         const reponseJson = await response.json()
         watchList.makeWatchList(reponseJson)
         for (const companies of reponseJson.Companies) {
-            console.log(companies)
-            companyCards.makeCompanyCard(companies)
-            
-           
+            companyCards.makeCompanyCard(companies)  
         }
         
     }

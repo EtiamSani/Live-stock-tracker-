@@ -5,15 +5,15 @@ const companyCards = {
 
 
         const button = event.target; 
-        console.log(button)
+        
         const input = button.closest('.watchlist-company__company-entryprice').querySelector('.entryprice-input');
-        console.log(input)
+        
         input.classList.remove('is-hidden')
     },
     hideEntryPriceInput : function () {
         const hideEnteryPriceInput = document.querySelector('.entryprice-input');
 
-        console.log(hideEnteryPriceInput)
+        
         hideEnteryPriceInput.classList.add('is-hidden');
     },
     makeCompanyCard : async function (company) {
@@ -28,9 +28,19 @@ const companyCards = {
         const companyPrice = responseJson["Global Quote"]['05. price']
         const companyChange = responseJson["Global Quote"]['09. change']
         const companyChangeInPercent = responseJson["Global Quote"]['10. change percent']
+
+
         newCompanyCard.querySelector('.watchlist-company__company-price').innerHTML = companyPrice
         newCompanyCard.querySelector('.watchlist-company__company-price-change').innerHTML = companyChange
         newCompanyCard.querySelector('.watchlist-company__company-price-change-pourcent').innerHTML = companyChangeInPercent
+
+        if (companyChangeInPercent < '0' && Number(companyChange) < 0) {
+            newCompanyCard.querySelector('.watchlist-company__company-price-change-pourcent').style.color = 'red'
+            newCompanyCard.querySelector('.watchlist-company__company-price-change').style.color = 'red'
+        } else {
+            newCompanyCard.querySelector('.watchlist-company__company-price-change-pourcent').style.color = 'green'
+            newCompanyCard.querySelector('.watchlist-company__company-price-change').style.color = 'green'
+        }
 
         newCompanyCard.querySelector('.fa-pen').addEventListener('click',companyCards.showEntryPriceInput);
         
@@ -55,8 +65,6 @@ const companyCards = {
         event.preventDefault()
         const formData = new FormData(event.target)
         const idCompany = event.target.closest('.update-entrey-price-form').querySelector('.entryprice-input').dataset.companyId;
-        console.log(idCompany)
-        console.log(formData.get("entry_price"))
         await fetch(app.base_url + "/company/" + idCompany, {
             method: 'PUT',
             body: formData

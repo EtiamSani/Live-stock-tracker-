@@ -21,7 +21,6 @@ const alphaVantageApiController = {
         try {    
         const response = await axios.get(`${URL_API}${symbol}&apikey=${API_KEY}`)    
         const stockPrice = response.data
-        console.log(stockPrice)
         res.json(stockPrice)
         } catch (error) {
             console.error(error);

@@ -23,15 +23,15 @@ const watchListController = {
     },
     updateList : async (req,res) => {
         const listId = Number(req.params.listId);
-        console.log(listId)
+        
         const listData = {
             name: req.body.name, 
             
         }
-        console.log(listData)
+        
         try {
             const list = await Watch_list.findByPk(listId);
-            console.log(listData)
+            
             await list.update(listData);
             res.json(list)
         } catch(err) {
