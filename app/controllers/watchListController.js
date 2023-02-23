@@ -65,14 +65,26 @@ const watchListController = {
         }
     },
     addCompany : async (req,res) => {
+        try {
         const listId = Number(req.params.listId);
         const companyId = Number(req.body.code_company);
-
         const watchListToFill = await Watch_list.findByPk(listId, {include : Company});
+
+        if (!watchListToFill) {
+            return res.status(404).json({ error: "Watch list not found" });
+          }
         const CompanyToAdd = await Company.findByPk(companyId);
+
+        if (!CompanyToAdd) {
+            return res.status(404).json({ error: "Company not found" });
+          }
+          
         await watchListToFill.addCompany(CompanyToAdd);
         await watchListToFill.reload()
         res.json(watchListToFill)
+        }catch(err) {
+            errors.error500(res, err);
+        }
     }
 
 }
