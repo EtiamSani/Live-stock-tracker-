@@ -12,9 +12,7 @@ const companyCards = {
     },
     makeCompanyCard : async function (company) {
 
-        if (companyCards.companyCardDisplayed) {
-            return;
-          }
+       
 
         const companyCardTemplate = document.querySelector('#CompanyCardColumn');
         const newCompanyCard = document.importNode(companyCardTemplate.content, true);
@@ -31,14 +29,16 @@ const companyCards = {
         newCompanyCard.querySelector('.watchlist-company__company-price-change').innerHTML = companyChange
         newCompanyCard.querySelector('.watchlist-company__company-price-change-pourcent').innerHTML = companyChangeInPercent
         
-
-        const companyCard = document.querySelector('.company-cards');
-        if (companyCard) {
-            companyCard.appendChild(newCompanyCard);
-            companyCards.watchListDisplayed = true;
-          } 
+        const companyCardsContainer = document.querySelector('.company-cards');
+        companyCardsContainer.innerHTML = '';
         
-        
+        if (companyCards.companyCardDisplayed === false) {
+            companyCards.companyCardDisplayed = true;
+          } else {
+            companyCardsContainer.innerHTML = '';
+          }
+       
         document.querySelector('.company-cards').append(newCompanyCard);
-    }
+        
+    },
 }

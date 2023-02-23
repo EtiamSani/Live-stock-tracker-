@@ -113,7 +113,7 @@ const watchList = {
         input.classList.remove('is-hidden'); 
     },
     findAwatchListWithCompanies : async function (event) {
-        
+        companyCards.companyCardDisplayed = false;
         const idWatchList = event.target.closest('.watchlist-item').querySelector('.watchlist-name-button').dataset.listId;
         
         const response = await fetch(app.base_url + "/watchlist/" + idWatchList);
@@ -123,6 +123,7 @@ const watchList = {
             console.log(companies)
             companyCards.makeCompanyCard(companies)
             
+           
         }
         
     }

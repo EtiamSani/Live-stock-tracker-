@@ -58,6 +58,7 @@ const companyController = {
        
         const enteryPriceData = {
             entry_price: req.body.entry_price, 
+            symbol : req.body.symbol
             
         }
         try {
