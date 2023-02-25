@@ -121,9 +121,13 @@ const watchList = {
         }
         
     },
+
+    // TODO 
     addSelectedCompanyInSelectedWatchList : async function (event, symbol) {
         const idWatchList = event.target.closest('.watchlist-item').querySelector('.watchlist-name-button').dataset.listId;
         console.log(idWatchList)
+        console.log('idWatchList')
+
 
         
 
