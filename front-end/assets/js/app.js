@@ -31,6 +31,7 @@ app = {
                 const name = nameLi.textContent.trim();
                 // console.log(symbol + name)
                 companyCards.sendSelectedCompanyInDataBase(symbol,name);
+                watchList.addSelectedCompanyInSelectedWatchList(symbol);
                 
                 
               }

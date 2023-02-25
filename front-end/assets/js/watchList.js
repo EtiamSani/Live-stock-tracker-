@@ -120,5 +120,23 @@ const watchList = {
             companyCards.makeCompanyCard(companies)  
         }
         
+    },
+    addSelectedCompanyInSelectedWatchList : async function (event, symbol) {
+        const idWatchList = event.target.closest('.watchlist-item').querySelector('.watchlist-name-button').dataset.listId;
+        console.log(idWatchList)
+
+        
+
+        //on recoit name de la fonction sendSelectedCompanyInDataBase ok
+        //methode recuperer code_company du symbole envoyé par sendSelectedCompanyInDataBase
+        const findCompanyBySymbolRespone = await fetch(app.base_url + "/company/symbol/" + symbol );
+        const findCompanyBySymbolResponeJson = await findCompanyBySymbolRespone.json();
+        //une fois code_company recupérer on le met dans une varable 
+        const companyId = findCompanyBySymbolResponeJson.code_company
+        // l'envoyer dans la body du fetch permettant d'ajouer une entreprise a une liste 
+        const response = await fetch(app.base_url + "/watchlist/" + idWatchList + "/company", {
+            method: 'POST',
+            body: companyId
+        });
     }
 }

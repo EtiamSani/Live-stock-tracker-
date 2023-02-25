@@ -11,6 +11,7 @@ companyRouter.get('/:companyId', companyController.getOneCompany);
 companyRouter.post('/', companyController.creatCompany);
 companyRouter.delete('/:companyId', companyController.deleteCompany);
 companyRouter.put('/:companyId', companyController.updateEntryPrice);
+companyRouter.get('/symbol/:symbol', companyController.findCompanyWithSymbol);
 
 
 

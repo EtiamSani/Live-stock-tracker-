@@ -70,6 +70,14 @@ const companyController = {
             errors.error500(res, err);
         }
     },
+    findCompanyWithSymbol : async (req,res) => {
+        
+        const symbol = req.params.symbol   
+        console.log(symbol)
+        
+        const findCompanyWithSymbol = await Company.findOne({ where: { symbol: symbol } })
+        res.json(findCompanyWithSymbol)
+    }
 }
 
 module.exports = companyController
