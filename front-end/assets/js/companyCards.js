@@ -74,6 +74,24 @@ const companyCards = {
         inputElement.value = "";
         inputElement.focus();
         
+    },
+    sendSelectedCompanyInDataBase : async function (symbol, name) {
+        // const formData = new FormData()
+        // formData.set('symbol', symbol);
+        // formData.set('name', name);
+        // console.log(symbol, name)
+
+        const symbolField = document.getElementById('symbolField');
+        const nameField = document.getElementById('nameField');
+        const addListForm = document.querySelector('#searchBarId');
+
+        symbolField.value = symbol;
+        nameField.value = name;
+
+        await fetch(app.base_url + "/company", {
+            method: 'POST',
+            body: new FormData(addListForm)
+        })
     }
 
 }

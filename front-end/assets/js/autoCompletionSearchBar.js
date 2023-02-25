@@ -58,5 +58,6 @@ autoCompletionSearchBar = {
         while (ul.firstChild) {
             ul.removeChild(ul.firstChild);
         }
-    }
+    },
+    
 }

@@ -19,6 +19,23 @@ app = {
         const addListForm = document.querySelector('#watchListModal form');
         addListForm.addEventListener('submit',watchList.handleAddListForm);
 
+            const selectedCompanyInSearchBar = document.querySelector('ul');
+            selectedCompanyInSearchBar.addEventListener('click', function(event) {
+              const clickedElement = event.target.closest('.search-result')
+            //   console.log(clickedElement)
+              if (clickedElement) {
+                const symbolLi = clickedElement.querySelector('.search-result-symbol');
+                const symbol = symbolLi.textContent.trim();
+
+                const nameLi = clickedElement.querySelector('.search-result-name');
+                const name = nameLi.textContent.trim();
+                // console.log(symbol + name)
+                companyCards.sendSelectedCompanyInDataBase(symbol,name);
+                
+                
+              }
+            });     
+
     }    
 }
 

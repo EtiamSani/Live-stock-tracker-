@@ -8,6 +8,7 @@ Company.init({
     code_company: { 
         type: DataTypes.INTEGER,
         primaryKey : true,
+        autoIncrement: true
     },
     name: { 
         type: DataTypes.STRING,
