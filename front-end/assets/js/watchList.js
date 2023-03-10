@@ -6,6 +6,7 @@ const watchList = {
     showAddWatchListModal: function () {
         const addWatchListModal = document.querySelector("#watchListModal");
         addWatchListModal.classList.add('is-active');
+
     },
     hideAddWatchListModal: function () {
         const closeWatchListModal = document.querySelector("#watchListModal");
@@ -60,6 +61,8 @@ const watchList = {
         newWatchListNameButton.querySelector('.fa-delete-left').addEventListener('click', watchList.deleteWatchList);
         newWatchListNameButton.querySelector('.watchlist-name-button').dataset.listId = watchListName.code_list;
 
+        newWatchListNameButton.querySelector('.watchlist-name-button').addEventListener('click', watchList.clickedWatchListId)
+        // newWatchListNameButton.querySelector('.watchlist-name-button').addEventListener('click', watchList.watchListId(watchListName))
 
        newWatchListNameButton.querySelector('.fa-pen').addEventListener('click', watchList.showInputUpdateWatchListName);
        newWatchListNameButton.querySelector('.update-watchlist-form').addEventListener('submit', watchList.updateWatchListName);
@@ -123,10 +126,14 @@ const watchList = {
     },
 
     // TODO 
-    addSelectedCompanyInSelectedWatchList : async function (event, symbol) {
-        const idWatchList = event.target.closest('.watchlist-item').querySelector('.watchlist-name-button').dataset.listId;
-        console.log(idWatchList)
-        console.log('idWatchList')
+    addSelectedCompanyInSelectedWatchList : async function (event, symbol,selectedWatchListId) {
+        console.log(event.target)
+        const idWatchList = event.target.closest('.watchlist-item').querySelector('.watchlist-name-button').dataset.listId;  //erreur une fois qu'on clique sur resultat liste la event de seachbar ecrase l'event présent
+       const watchListIdArray = [idWatchList]
+       const selectedId = watchListIdArray.shift();
+    console.log(selectedId);
+        
+        
 
 
         
@@ -138,9 +145,16 @@ const watchList = {
         //une fois code_company recupérer on le met dans une varable 
         const companyId = findCompanyBySymbolResponeJson.code_company
         // l'envoyer dans la body du fetch permettant d'ajouer une entreprise a une liste 
-        const response = await fetch(app.base_url + "/watchlist/" + idWatchList + "/company", {
+        const response = await fetch(app.base_url + "/watchlist/" + selectedId + "/company", {
             method: 'POST',
             body: companyId
         });
+    },
+    clickedWatchListId : async function (event) {
+        const button = event.target; 
+        const SelectedWatchListButton = button.parentElement.nextElementSibling.querySelector('.watchlist-name-button').dataset.listId
+        // const addActiveClass = document.querySelector('.watchlist-name-button').dataset.listId
+        // console.log(SelectedWatchListButton)
+        watchList.addSelectedCompanyInSelectedWatchList(event, 'SYMBOL', SelectedWatchListButton);
     }
 }
