@@ -125,22 +125,19 @@ const watchList = {
         
     },
 
-    // TODO avec formdata ? 
+    
     addSelectedCompanyInSelectedWatchList : async function (symbol,SelectedWatchListButton) {
     
     const selectedWatchListId = localStorage.getItem('selectedWatchListId');
     let gettedIdWatchList = selectedWatchListId;
     const url = `${app.base_url}/watchlist/${gettedIdWatchList}/company`;
     
-    
-
     const findCompanyBySymbolRespone = await fetch(app.base_url + "/company/symbol/" + symbol );
     
         const findCompanyBySymbolResponeJson = await findCompanyBySymbolRespone.json();
         //une fois code_company recupérer on le met dans une varable 
         const companyId = findCompanyBySymbolResponeJson.code_company
         console.log('companycode :' + companyId)
-
         const formData = new FormData();
     formData.append('code_company', companyId);
     console.log('code_company:', formData.get('code_company'));
@@ -151,38 +148,16 @@ const watchList = {
     });
     const result = await response.json();
     console.log(result);
-    localStorage.setItem('selectedWatchListId', idWatchList); // stocker la valeur de l'ID de la liste de surveillance sélectionnée dans le localStorage
-
-    //     console.log(event.target)
-    //     const idWatchList = event.target.closest('.watchlist-item').querySelector('.watchlist-name-button').dataset.listId;  //erreur une fois qu'on clique sur resultat liste la event de seachbar ecrase l'event présent
-    //    const watchListIdArray = [idWatchList]
-    //    const selectedId = watchListIdArray.shift();
-    // console.log(selectedId);
-        
-        
-
-
-        
-
-    //     //on recoit name de la fonction sendSelectedCompanyInDataBase ok
-    //     //methode recuperer code_company du symbole envoyé par sendSelectedCompanyInDataBase
-    //     const findCompanyBySymbolRespone = await fetch(app.base_url + "/company/symbol/" + symbol );
-    //     const findCompanyBySymbolResponeJson = await findCompanyBySymbolRespone.json();
-    //     //une fois code_company recupérer on le met dans une varable 
-    //     const companyId = findCompanyBySymbolResponeJson.code_company
-    //     // l'envoyer dans la body du fetch permettant d'ajouer une entreprise a une liste 
-    //     const response = await fetch(app.base_url + "/watchlist/" + selectedWatchListId + "/company", {
-    //         method: 'POST',
-    //         body: companyId
-    //     });
+   
 
 },
+// TODO Ca envoie la valeur selectionner dans la mauvaise watch list c-a-d celle d'acoté -> ca selectionne l'id d'acoté 
 clickedWatchListId : async function (event) {
     const button = event.target;
   const SelectedWatchListButton = button.parentElement.nextElementSibling.querySelector('.watchlist-name-button').dataset.listId;
-//   console.log(SelectedWatchListButton)
+
   let idWatchList = SelectedWatchListButton;
-//   console.log(idWatchList)
+
 
   localStorage.setItem('selectedWatchListId', idWatchList); // stocker la valeur de l'ID de la liste de surveillance sélectionnée dans le localStorage
   // Vérifier si idWatchList est déjà stocké dans le localStorage
@@ -201,3 +176,4 @@ clickedWatchListId : async function (event) {
   }
 }
 }
+
