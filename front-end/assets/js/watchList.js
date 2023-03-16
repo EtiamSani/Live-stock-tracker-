@@ -1,5 +1,5 @@
 
-
+let selectedWatchListId;
 const watchList = {
     watchListDisplayed : false,
 
@@ -125,36 +125,79 @@ const watchList = {
         
     },
 
-    // TODO 
-    addSelectedCompanyInSelectedWatchList : async function (event, symbol,selectedWatchListId) {
-        console.log(event.target)
-        const idWatchList = event.target.closest('.watchlist-item').querySelector('.watchlist-name-button').dataset.listId;  //erreur une fois qu'on clique sur resultat liste la event de seachbar ecrase l'event présent
-       const watchListIdArray = [idWatchList]
-       const selectedId = watchListIdArray.shift();
-    console.log(selectedId);
-        
-        
+    // TODO avec formdata ? 
+    addSelectedCompanyInSelectedWatchList : async function (symbol,SelectedWatchListButton) {
+    
+    const selectedWatchListId = localStorage.getItem('selectedWatchListId');
+    let gettedIdWatchList = selectedWatchListId;
+    const url = `${app.base_url}/watchlist/${gettedIdWatchList}/company`;
+    
+    
 
-
-        
-
-        //on recoit name de la fonction sendSelectedCompanyInDataBase ok
-        //methode recuperer code_company du symbole envoyé par sendSelectedCompanyInDataBase
-        const findCompanyBySymbolRespone = await fetch(app.base_url + "/company/symbol/" + symbol );
+    const findCompanyBySymbolRespone = await fetch(app.base_url + "/company/symbol/" + symbol );
+    
         const findCompanyBySymbolResponeJson = await findCompanyBySymbolRespone.json();
         //une fois code_company recupérer on le met dans une varable 
         const companyId = findCompanyBySymbolResponeJson.code_company
-        // l'envoyer dans la body du fetch permettant d'ajouer une entreprise a une liste 
-        const response = await fetch(app.base_url + "/watchlist/" + selectedId + "/company", {
-            method: 'POST',
-            body: companyId
-        });
-    },
-    clickedWatchListId : async function (event) {
-        const button = event.target; 
-        const SelectedWatchListButton = button.parentElement.nextElementSibling.querySelector('.watchlist-name-button').dataset.listId
-        // const addActiveClass = document.querySelector('.watchlist-name-button').dataset.listId
-        // console.log(SelectedWatchListButton)
-        watchList.addSelectedCompanyInSelectedWatchList(event, 'SYMBOL', SelectedWatchListButton);
-    }
+        console.log('companycode :' + companyId)
+
+        const formData = new FormData();
+    formData.append('code_company', companyId);
+    console.log('code_company:', formData.get('code_company'));
+
+    const response = await fetch(url, {
+      method: 'POST',
+      body:  formData
+    });
+    const result = await response.json();
+    console.log(result);
+    localStorage.setItem('selectedWatchListId', idWatchList); // stocker la valeur de l'ID de la liste de surveillance sélectionnée dans le localStorage
+
+    //     console.log(event.target)
+    //     const idWatchList = event.target.closest('.watchlist-item').querySelector('.watchlist-name-button').dataset.listId;  //erreur une fois qu'on clique sur resultat liste la event de seachbar ecrase l'event présent
+    //    const watchListIdArray = [idWatchList]
+    //    const selectedId = watchListIdArray.shift();
+    // console.log(selectedId);
+        
+        
+
+
+        
+
+    //     //on recoit name de la fonction sendSelectedCompanyInDataBase ok
+    //     //methode recuperer code_company du symbole envoyé par sendSelectedCompanyInDataBase
+    //     const findCompanyBySymbolRespone = await fetch(app.base_url + "/company/symbol/" + symbol );
+    //     const findCompanyBySymbolResponeJson = await findCompanyBySymbolRespone.json();
+    //     //une fois code_company recupérer on le met dans une varable 
+    //     const companyId = findCompanyBySymbolResponeJson.code_company
+    //     // l'envoyer dans la body du fetch permettant d'ajouer une entreprise a une liste 
+    //     const response = await fetch(app.base_url + "/watchlist/" + selectedWatchListId + "/company", {
+    //         method: 'POST',
+    //         body: companyId
+    //     });
+
+},
+clickedWatchListId : async function (event) {
+    const button = event.target;
+  const SelectedWatchListButton = button.parentElement.nextElementSibling.querySelector('.watchlist-name-button').dataset.listId;
+//   console.log(SelectedWatchListButton)
+  let idWatchList = SelectedWatchListButton;
+//   console.log(idWatchList)
+
+  localStorage.setItem('selectedWatchListId', idWatchList); // stocker la valeur de l'ID de la liste de surveillance sélectionnée dans le localStorage
+  // Vérifier si idWatchList est déjà stocké dans le localStorage
+  const selectedWatchListId = localStorage.getItem('selectedWatchListId');
+  if (selectedWatchListId) {
+    idWatchList = selectedWatchListId;
+  }
+  
+  // Vérifier si idWatchList est défini
+  if (idWatchList) {
+    console.log(idWatchList);
+    watchList.addSelectedCompanyInSelectedWatchList('SYMBOL', idWatchList);
+    
+    // Stocker la valeur de l'ID de la liste de surveillance sélectionnée dans le localStorage
+    localStorage.setItem('selectedWatchListId', idWatchList);
+  }
+}
 }
