@@ -7,7 +7,7 @@ autoCompletionSearchBar = {
         li.innerText = text;
         return li
     },
-    // TODO resolve Fetching data error : unexpected end of json input 
+    
     companySearchResults : async function (e) {
         try {
         const query = e.target.value;
@@ -21,6 +21,11 @@ autoCompletionSearchBar = {
                 for (const results of reponseJson) {
                     const div = document.createElement("div");
                     div.classList.add('search-result');
+
+                    div.addEventListener('click', function() {
+                        
+                        autoCompletionSearchBar.removeLiInSearchBar();
+                    });
                     
                     const divSymbol = document.createElement("div");
                     divSymbol.classList.add('search-result-symbol');

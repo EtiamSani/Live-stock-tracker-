@@ -1,7 +1,6 @@
 const companyCards = { 
     companyCardDisplayed : false,
     showEntryPriceInput : function (event) {
-        // const showEnteryPriceInput = document.querySelector('.entryprice-input');
 
 
         const button = event.target; 
@@ -50,13 +49,6 @@ const companyCards = {
         const companyCardsContainer = document.querySelector('.company-cards');
         
         
-        
-        // if (companyCards.companyCardDisplayed === false) {
-        //     companyCards.companyCardDisplayed = true;
-        // } else {
-        //     companyCardsContainer.innerHTML = '';
-        // }
-        // companyCardsContainer.innerHTML = '';
        
         document.querySelector('.company-cards').append(newCompanyCard);
         
@@ -73,13 +65,13 @@ const companyCards = {
         const inputElement = event.target[0];
         inputElement.value = "";
         inputElement.focus();
+        watchList.getWatchListFromApi()
+        // TODO faire en sorte que ca se recharge et met a jour le nouveau prix quand on ajoute un new prix 
+       
         
     },
     sendSelectedCompanyInDataBase : async function (symbol, name) {
-        // const formData = new FormData()
-        // formData.set('symbol', symbol);
-        // formData.set('name', name);
-        // console.log(symbol, name)
+        
 
         const symbolField = document.getElementById('symbolField');
         const nameField = document.getElementById('nameField');
@@ -92,6 +84,7 @@ const companyCards = {
             method: 'POST',
             body: new FormData(addListForm)
         })
-    }
+    },
+
 
 }

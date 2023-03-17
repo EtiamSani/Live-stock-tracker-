@@ -115,6 +115,8 @@ const watchList = {
     findAwatchListWithCompanies : async function (event) {
         companyCards.companyCardDisplayed = false;
         const idWatchList = event.target.closest('.watchlist-item').querySelector('.watchlist-name-button').dataset.listId;
+
+        watchList.clearWatchListContainer()
         
         const response = await fetch(app.base_url + "/watchlist/" + idWatchList);
         const reponseJson = await response.json()
@@ -127,10 +129,12 @@ const watchList = {
 
     
     addSelectedCompanyInSelectedWatchList : async function (symbol,SelectedWatchListButton) {
-    
+        if (selectedWatchListId) {
     const selectedWatchListId = localStorage.getItem('selectedWatchListId');
     let gettedIdWatchList = selectedWatchListId;
     const url = `${app.base_url}/watchlist/${gettedIdWatchList}/company`;
+
+    if(symbol) {
     
     const findCompanyBySymbolRespone = await fetch(app.base_url + "/company/symbol/" + symbol );
     
@@ -149,12 +153,13 @@ const watchList = {
     const result = await response.json();
     console.log(result);
    
-
+    }
+}
 },
-// TODO Ca envoie la valeur selectionner dans la mauvaise watch list c-a-d celle d'acoté -> ca selectionne l'id d'acoté 
+
 clickedWatchListId : async function (event) {
     const button = event.target;
-  const SelectedWatchListButton = button.parentElement.nextElementSibling.querySelector('.watchlist-name-button').dataset.listId;
+  const SelectedWatchListButton = button.dataset.listId;
 
   let idWatchList = SelectedWatchListButton;
 
@@ -174,6 +179,10 @@ clickedWatchListId : async function (event) {
     // Stocker la valeur de l'ID de la liste de surveillance sélectionnée dans le localStorage
     localStorage.setItem('selectedWatchListId', idWatchList);
   }
+},
+clearWatchListContainer : async function () {
+    const watchListContainer = document.querySelector('.company-cards');
+    watchListContainer.innerHTML = '';
 }
 }
 
