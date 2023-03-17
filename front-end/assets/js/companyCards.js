@@ -65,8 +65,8 @@ const companyCards = {
         const inputElement = event.target[0];
         inputElement.value = "";
         inputElement.focus();
-        watchList.getWatchListFromApi()
-        // TODO faire en sorte que ca se recharge et met a jour le nouveau prix quand on ajoute un new prix 
+        companyCards.refeshCards(idCompany)
+        // TODO faire en sorte que ca se recharge et met a jour le nouveau prix quand on ajoute un new prix watchlist-company-card
        
         
     },
@@ -85,6 +85,29 @@ const companyCards = {
             body: new FormData(addListForm)
         })
     },
+    // TODO j'aarive pas a recuperer enteryPriceElement 
+    refeshCards : async function (idCompany) {
 
+       
+        console.log(' comp id est' + idCompany)
+        
+        const response = await fetch(app.base_url + "/company/" + idCompany);
+        const reponseJson = await response.json()
+
+        // const entryPriceElements = document.querySelectorAll('.entryprice');
+        // console.log(entryPriceElements)
+
+        // entryPriceElements.forEach(entryPriceElement => {
+        //     entryPriceElement.innerHTML = reponseJson.entry_price;
+        //   }); CE CODE MODIFIE TOUT DONC PAS BON MAIS Y A UNE PISTE 
+
+        const entryPriceElement = document.querySelector(`[data-company-cid="${idCompany}"] .entryprice`);
+
+        console.log(entryPriceElement);
+        entryPriceElement.innerHTML = reponseJson.entry_price;
+
+
+        companyCards.makeCompanyCard(reponseJson)
+    }
 
 }
