@@ -129,8 +129,9 @@ const watchList = {
 
     
     addSelectedCompanyInSelectedWatchList : async function (symbol,SelectedWatchListButton) {
+        const selectedWatchListId = localStorage.getItem('selectedWatchListId');
         if (selectedWatchListId) {
-    const selectedWatchListId = localStorage.getItem('selectedWatchListId');
+            console.log('CEST OK ')
     let gettedIdWatchList = selectedWatchListId;
     const url = `${app.base_url}/watchlist/${gettedIdWatchList}/company`;
 
@@ -154,6 +155,7 @@ const watchList = {
     console.log(result);
    
     }
+    companyCards.refreshCompanyCards()
 }
 },
 
@@ -175,6 +177,7 @@ clickedWatchListId : async function (event) {
   if (idWatchList) {
     console.log(idWatchList);
     watchList.addSelectedCompanyInSelectedWatchList('SYMBOL', idWatchList);
+    
     
     // Stocker la valeur de l'ID de la liste de surveillance sélectionnée dans le localStorage
     localStorage.setItem('selectedWatchListId', idWatchList);
