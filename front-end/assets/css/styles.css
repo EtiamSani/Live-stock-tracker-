@@ -72,8 +72,9 @@
 }
 
 .watchlist-company-card { 
-    width: 100%;
+    width: 80%;
     margin: auto;
+    padding-left: 2rem;
 }
 
 .entery-price-header {
@@ -188,4 +189,8 @@
   .fa-square-plus {
     margin-right: 0.5rem;
     font-size: 1.6rem;
+  }
+
+  .entry-price-container {
+    margin-top: 2rem;
   }
