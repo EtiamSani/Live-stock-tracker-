@@ -1,5 +1,4 @@
 
-
 autoCompletionSearchBar = { 
     creatLiInSearchBar : function (text) { 
         const li = document.createElement("li");
@@ -11,7 +10,7 @@ autoCompletionSearchBar = {
     companySearchResults : async function (e) {
         try {
         const query = e.target.value;
-        console.log(query)
+        
         autoCompletionSearchBar.removeLiInSearchBar();
         const ul = document.getElementById("suggestions");
         if (query) {

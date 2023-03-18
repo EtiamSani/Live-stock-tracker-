@@ -71,8 +71,7 @@ const companyCards = {
             method: 'PUT',
             body: formData
         })
-        // const newEntryPrice = formData.get('entry_price');
-        // companyCards.updateCompanyCard(idCompany, newEntryPrice);
+       
         companyCards.hideEntryPriceInput()
         const inputElement = event.target[0];
         inputElement.value = "";
@@ -98,77 +97,32 @@ const companyCards = {
             body: new FormData(addListForm)
         })
     },
-    // TODO j'aarive pas a recuperer enteryPriceElement 
+   
     refreshCompanyCards : async function (event) {
-        // console.log(event)
-        // // const companyButtons = document.querySelectorAll('.entryprice-input')
-        // // console.log(companyButtons)
-        // // for (const company of companyButtons) {
-        // //     company.addEventListener('submit', async function(event) {
-        //     const clickedCompanyId  = event
-        // //     console.log(clickedCompanyId)
-            
-
-        //     const response = await fetch(app.base_url + "/company/" + clickedCompanyId );
-        //     const reponseJson = await response.json()
-    
-        //     // const entryPriceElements = document.querySelectorAll('.entryprice');
-        //     // console.log(entryPriceElements)
-    
-        //     // entryPriceElements.forEach(entryPriceElement => {
-        //     //     entryPriceElement.innerHTML = reponseJson.entry_price;
-        //     //   }); CE CODE MODIFIE TOUT DONC PAS BON MAIS Y A UNE PISTE 
-    
-        //     const entryPriceElement = document.querySelector(`[data-company-id="${clickedCompanyId }"] `);
-    
-        //     console.log(entryPriceElement);
-        //     entryPriceElement.innerHTML = reponseJson.entry_price;
-    
-    
-            
-            
-            
-            
-        //     companyCards.makeCompanyCard(reponseJson)
-        //     // rest of the code to update entry price for this company
-            
-        //   });
-        // };
+       
 
         const companyCardsContainer = document.querySelector('.company-cards');
   companyCardsContainer.innerHTML = ''; // Supprimer toutes les cartes existantes
   const selectedWatchListId = localStorage.getItem('selectedWatchListId');
-  console.log('ICICICI' + selectedWatchListId)
   // Récupérer la liste de surveillance
   const watchlist = await fetch(app.base_url + '/watchlist/'+ selectedWatchListId);
   const watchlistJson = await watchlist.json();
-  console.log(watchlistJson)
-  console.log(watchlistJson.Companies)
 
   // Mettre à jour chaque carte d'entreprise
   for (const company of watchlistJson.Companies) {
        const idCompany = company.code_company
-    // companyCards.updateCompanyCard(idCompany, company.entry_price);
+    
     companyCards.makeCompanyCard(company);
 
   }
         
     },
-    updateCompanyCard : async function (idCompany,company) {
-        console.log('id '+ idCompany + 'prix' + company)
-        const entryPriceElement = document.querySelector(`[data-company-id="${idCompany}"] .entryprice`);
-        console.log(entryPriceElement)
-        entryPriceElement.textContent = company;
-
-       
-
-        
-    },
+   
     deletCompanyFromWatchList : async function (event) {
 
-        console.log(event)
+        
         const idCompanyToDelet = event.target.dataset.deleteId;
-        console.log(idCompanyToDelet)
+        
         await fetch(app.base_url + "/company/" + idCompanyToDelet, {
             method: 'DELETE',
            

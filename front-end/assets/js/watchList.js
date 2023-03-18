@@ -128,10 +128,9 @@ const watchList = {
     },
 
     
-    addSelectedCompanyInSelectedWatchList : async function (symbol,SelectedWatchListButton) {
+    addSelectedCompanyInSelectedWatchList : async function (symbol) {
         const selectedWatchListId = localStorage.getItem('selectedWatchListId');
-        if (selectedWatchListId) {
-            console.log('CEST OK ')
+        if (selectedWatchListId && symbol ) {
     let gettedIdWatchList = selectedWatchListId;
     const url = `${app.base_url}/watchlist/${gettedIdWatchList}/company`;
 
@@ -142,17 +141,16 @@ const watchList = {
         const findCompanyBySymbolResponeJson = await findCompanyBySymbolRespone.json();
         //une fois code_company recupérer on le met dans une varable 
         const companyId = findCompanyBySymbolResponeJson.code_company
-        console.log('companycode :' + companyId)
+    
         const formData = new FormData();
     formData.append('code_company', companyId);
-    console.log('code_company:', formData.get('code_company'));
 
     const response = await fetch(url, {
       method: 'POST',
       body:  formData
     });
     const result = await response.json();
-    console.log(result);
+
    
     }
     companyCards.refreshCompanyCards()
@@ -175,7 +173,7 @@ clickedWatchListId : async function (event) {
   
   // Vérifier si idWatchList est défini
   if (idWatchList) {
-    console.log(idWatchList);
+
     watchList.addSelectedCompanyInSelectedWatchList('SYMBOL', idWatchList);
     
     
