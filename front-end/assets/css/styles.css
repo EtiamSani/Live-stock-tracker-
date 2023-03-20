@@ -148,6 +148,10 @@
     margin-right: 1rem;
     position: relative;
     max-width: 100%;
+    width: 100%;
+    height: 30px;
+    word-wrap: break-word;
+    border-radius: 1rem;
   }
   
   .update-input  {
@@ -194,3 +198,6 @@
   .entry-price-container {
     margin-top: 2rem;
   }
+
+
+  
