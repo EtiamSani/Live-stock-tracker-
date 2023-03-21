@@ -24,7 +24,9 @@ const companyCards = {
 
         const response = await fetch(app.base_url +"/tickersearch/price/"+ company.symbol)
         const responseJson = await response.json()
-        console.log(responseJson.c)
+        
+       
+        console.log(responseJson)
         // const companyPrice = responseJson["Global Quote"]['05. price']
         // const companyChange = responseJson["Global Quote"]['09. change']
         // const companyChangeInPercent = responseJson["Global Quote"]['10. change percent']
@@ -171,6 +173,11 @@ const companyCards = {
     // Récupérer la liste de surveillance
     const watchlist = await fetch(app.base_url + '/watchlist/' + selectedWatchListId).then(response => response.json());
     const socket = new WebSocket('wss://ws.finnhub.io?token=cgc550hr01qsquh3egv0cgc550hr01qsquh3egvg');
+    
+    // TODO 
+    // ligne si desous marcher mais fait tout planter 
+    // const responsesClosePrice = await Promise.all(watchlist.Companies.map(company => fetch(app.base_url + "/tickersearch/price/" + company.symbol).then(response => response.json())));
+    // console.log(responsesClosePrice)
     // Itérer sur toutes les entreprises dans la liste de surveillance
     for (const company of watchlist.Companies) {
 
@@ -180,13 +187,27 @@ const companyCards = {
         socket.send(JSON.stringify({ type: 'subscribe', symbol: company.symbol }));
       });
 
-      // Listen for messages
+      //TODO 
+    //   for (let i = 0; i < responsesClosePrice.length; i++) {
+    //     const company = watchlist.Companies[i];
+    //     const responseJsonClose = responsesClosePrice[i];
+    //     console.log(responseJsonClose)
+    //     // Listen for messages
+    // } une piste 
+
+    
       socket.addEventListener('message', function (event) {
-        // console.log('Message from server ', event.data);
+        console.log('Message from server ', event.data);
         const response = JSON.parse(event.data);
         const price = response.data[0].p;
-        const previousPrice = responseJson.c; //ici mettre le prix qu'il yavais a la precedent cloture ! 
         const symbol = response.data[0].s;
+        // for (const closePrice of responsesClosePrice.c) {
+        //     console.log('yaaaa' + closePrice)
+        // }
+        const previousPrices = responseJson.c; //ici mettre le prix qu'il yavais a la precedent cloture ! 
+       
+
+        
 
         function calculatePercentageChange(previousPrice, price) {
             const percentageChange = ((price - previousPrice) / previousPrice) ;
@@ -198,7 +219,14 @@ const companyCards = {
             // Mettre à jour la valeur du prix dans l'élément de carte de l'entreprise
             if(companyCard) {
             companyCard.innerHTML = price;
-            const percentageChange = calculatePercentageChange(previousPrice, price);
+            
+            
+          
+            const percentageChange = calculatePercentageChange(previousPrices, price);
+          
+
+          
+            
             console.log(percentageChange + '%' + symbol)
             }
         }
