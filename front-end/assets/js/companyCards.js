@@ -24,9 +24,10 @@ const companyCards = {
 
         const response = await fetch(app.base_url +"/tickersearch/price/"+ company.symbol)
         const responseJson = await response.json()
-        const companyPrice = responseJson["Global Quote"]['05. price']
-        const companyChange = responseJson["Global Quote"]['09. change']
-        const companyChangeInPercent = responseJson["Global Quote"]['10. change percent']
+        console.log(responseJson.c)
+        // const companyPrice = responseJson["Global Quote"]['05. price']
+        // const companyChange = responseJson["Global Quote"]['09. change']
+        // const companyChangeInPercent = responseJson["Global Quote"]['10. change percent']
 
 
 
@@ -61,18 +62,18 @@ const companyCards = {
 //  var unsubscribe = function(symbol) {
 //     socket.send(JSON.stringify({'type':'unsubscribe','symbol': symbol}))
 // }
-        companyCards.realTimePrice(company)
+        companyCards.realTimePrice(responseJson)
        
-        newCompanyCard.querySelector('.watchlist-company__company-price-change').innerHTML = companyChange
-        newCompanyCard.querySelector('.watchlist-company__company-price-change-pourcent').innerHTML = companyChangeInPercent
+        // newCompanyCard.querySelector('.watchlist-company__company-price-change').innerHTML = companyChange
+        // newCompanyCard.querySelector('.watchlist-company__company-price-change-pourcent').innerHTML = companyChangeInPercent
 
-        if (companyChangeInPercent < '0' && Number(companyChange) < 0) {
-            newCompanyCard.querySelector('.watchlist-company__company-price-change-pourcent').style.color = 'red'
-            newCompanyCard.querySelector('.watchlist-company__company-price-change').style.color = 'red'
-        } else {
-            newCompanyCard.querySelector('.watchlist-company__company-price-change-pourcent').style.color = 'green'
-            newCompanyCard.querySelector('.watchlist-company__company-price-change').style.color = 'green'
-        }
+        // if (companyChangeInPercent < '0' && Number(companyChange) < 0) {
+        //     newCompanyCard.querySelector('.watchlist-company__company-price-change-pourcent').style.color = 'red'
+        //     newCompanyCard.querySelector('.watchlist-company__company-price-change').style.color = 'red'
+        // } else {
+        //     newCompanyCard.querySelector('.watchlist-company__company-price-change-pourcent').style.color = 'green'
+        //     newCompanyCard.querySelector('.watchlist-company__company-price-change').style.color = 'green'
+        // }
 
         newCompanyCard.querySelector('.fa-pen').addEventListener('click',companyCards.showEntryPriceInput);
         newCompanyCard.querySelector('.delete').addEventListener('click',companyCards.deletCompanyFromWatchList);
@@ -165,7 +166,7 @@ const companyCards = {
 
         companyCards.refreshCompanyCards()
     },
-    realTimePrice : async function () {
+    realTimePrice : async function (responseJson) {
         const selectedWatchListId = localStorage.getItem('selectedWatchListId');
     // Récupérer la liste de surveillance
     const watchlist = await fetch(app.base_url + '/watchlist/' + selectedWatchListId).then(response => response.json());
@@ -184,13 +185,21 @@ const companyCards = {
         // console.log('Message from server ', event.data);
         const response = JSON.parse(event.data);
         const price = response.data[0].p;
+        const previousPrice = responseJson.c; //ici mettre le prix qu'il yavais a la precedent cloture ! 
         const symbol = response.data[0].s;
+
+        function calculatePercentageChange(previousPrice, price) {
+            const percentageChange = ((price - previousPrice) / previousPrice) ;
+            return percentageChange.toFixed(2);
+          }
 
         if (company.symbol === symbol) {
             const companyCard = document.querySelector(`.watchlist-company__company-price[data-symbol-ticker="${company.symbol}"]`);
             // Mettre à jour la valeur du prix dans l'élément de carte de l'entreprise
             if(companyCard) {
             companyCard.innerHTML = price;
+            const percentageChange = calculatePercentageChange(previousPrice, price);
+            console.log(percentageChange + '%' + symbol)
             }
         }
 
