@@ -49,9 +49,6 @@
     justify-content: left;
 }
 
-.watchlist-company__company-price-and-change {
-    
-}
 
 .watchlist-company__company-data {
     margin-left: auto;
@@ -240,4 +237,6 @@
   }
 
 
-  
+  .footer {
+    margin-top: 5rem;
+  }

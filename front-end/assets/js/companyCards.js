@@ -29,7 +29,40 @@ const companyCards = {
         const companyChangeInPercent = responseJson["Global Quote"]['10. change percent']
 
 
-        newCompanyCard.querySelector('.watchlist-company__company-price').innerHTML = companyPrice
+
+//         const socket = new WebSocket('wss://ws.finnhub.io?token=cgc550hr01qsquh3egv0cgc550hr01qsquh3egvg'); 
+
+// // Connection opened -> Subscribe
+// socket.addEventListener('open', function (event) {
+
+    
+//     socket.send(JSON.stringify({'type':'subscribe', 'symbol': company.symbol}))
+//     // socket.send(JSON.stringify({'type':'subscribe', 'symbol': 'BINANCE:BTCUSDT'}))
+//     // socket.send(JSON.stringify({'type':'subscribe', 'symbol': 'IC MARKETS:1'}))
+// });
+
+// // Listen for messages
+// socket.addEventListener('message', function (event) {
+//     console.log('Message from server ', event.data);
+//     const response = JSON.parse(event.data);
+//   const price = response.data[0].p;
+  
+ 
+//   // Sélectionnez l'élément de carte de l'entreprise existant à mettre à jour
+// const companyCard = document.querySelector('.watchlist-company__company-price');
+
+// // Mettre à jour la valeur du prix dans l'élément de carte de l'entreprise
+// companyCard.innerHTML = price;
+
+ 
+// });
+
+// // Unsubscribe
+//  var unsubscribe = function(symbol) {
+//     socket.send(JSON.stringify({'type':'unsubscribe','symbol': symbol}))
+// }
+        companyCards.realTimePrice(company)
+       
         newCompanyCard.querySelector('.watchlist-company__company-price-change').innerHTML = companyChange
         newCompanyCard.querySelector('.watchlist-company__company-price-change-pourcent').innerHTML = companyChangeInPercent
 
@@ -48,6 +81,8 @@ const companyCards = {
         newCompanyCard.querySelector('.update-entrey-price-form').addEventListener('submit', companyCards.updateEntryPrice);
         newCompanyCard.querySelector('.entryprice-input').dataset.companyId = company.code_company;
         newCompanyCard.querySelector('.delete').dataset.deleteId = company.code_company;
+
+        newCompanyCard.querySelector('.watchlist-company__company-price').dataset.symbolTicker = company.symbol;
 
 
         // const updateInput = newCompanyCard.querySelectorAll('.entryprice-input')
@@ -129,6 +164,44 @@ const companyCards = {
         })
 
         companyCards.refreshCompanyCards()
+    },
+    realTimePrice : async function () {
+        const selectedWatchListId = localStorage.getItem('selectedWatchListId');
+    // Récupérer la liste de surveillance
+    const watchlist = await fetch(app.base_url + '/watchlist/' + selectedWatchListId).then(response => response.json());
+    const socket = new WebSocket('wss://ws.finnhub.io?token=cgc550hr01qsquh3egv0cgc550hr01qsquh3egvg');
+    // Itérer sur toutes les entreprises dans la liste de surveillance
+    for (const company of watchlist.Companies) {
+
+
+      // Connection opened -> Subscribe
+      socket.addEventListener('open', function (event) {
+        socket.send(JSON.stringify({ type: 'subscribe', symbol: company.symbol }));
+      });
+
+      // Listen for messages
+      socket.addEventListener('message', function (event) {
+        // console.log('Message from server ', event.data);
+        const response = JSON.parse(event.data);
+        const price = response.data[0].p;
+        const symbol = response.data[0].s;
+
+        if (company.symbol === symbol) {
+            const companyCard = document.querySelector(`.watchlist-company__company-price[data-symbol-ticker="${company.symbol}"]`);
+            // Mettre à jour la valeur du prix dans l'élément de carte de l'entreprise
+            if(companyCard) {
+            companyCard.innerHTML = price;
+            }
+        }
+
+      });
+
+      // Unsubscribe
+      var unsubscribe = function (symbol) {
+        socket.send(JSON.stringify({ type: 'unsubscribe', symbol: symbol }));
+      };
     }
+  },
+    
 
 }
