@@ -62,7 +62,14 @@ const watchList = {
         newWatchListNameButton.querySelector('.watchlist-name-button').dataset.listId = watchListName.code_list;
 
         newWatchListNameButton.querySelector('.watchlist-name-button').addEventListener('click', watchList.clickedWatchListId)
-        // newWatchListNameButton.querySelector('.watchlist-name-button').addEventListener('click', watchList.watchListId(watchListName))
+       const buttons = newWatchListNameButton.querySelectorAll('.watchlist-name-button')
+       for (const button of buttons) {
+        button.addEventListener('click', function() {
+            watchList.watchListButtonChange(button)
+        })
+        }
+         
+        
 
        newWatchListNameButton.querySelector('.fa-pen').addEventListener('click', watchList.showInputUpdateWatchListName);
        newWatchListNameButton.querySelector('.update-watchlist-form').addEventListener('submit', watchList.updateWatchListName);
@@ -184,6 +191,18 @@ clickedWatchListId : async function (event) {
 clearWatchListContainer : async function () {
     const watchListContainer = document.querySelector('.company-cards');
     watchListContainer.innerHTML = '';
+},
+watchListButtonChange : function (button) {
+    const watchListButtonChange = document.querySelectorAll('.watchlist-name-button')
+    for (const oneButton of watchListButtonChange ) {
+        oneButton.classList.remove('is-active')
+        if (oneButton !== button) {
+            oneButton.classList.add('is-link')
+        }
+    }
+
+    button.classList.remove('is-link')
+    button.classList.add('is-active')
 }
 }
 
