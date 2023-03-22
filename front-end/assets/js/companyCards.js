@@ -27,30 +27,22 @@ const companyCards = {
         
        
        
-        // companyCards.realTimePrice(responseJson)
+       
         const selectedWatchListId = localStorage.getItem('selectedWatchListId');
         const watchlist = await fetch(app.base_url + '/watchlist/'+ selectedWatchListId);
         const watchlistJson = await watchlist.json()
-        // let closePrices = [];
+      
          const responsesClosePrice = await fetch(app.base_url + "/tickersearch/price/" + company.symbol)
          const responsesClosePriceJson = await responsesClosePrice.json()
          const previousPrices = responsesClosePriceJson.pc
          
-        //  closePrices[company.symbol] = responsesClosePriceJson.pc
-        //  console.log(closePrices)
+     
 
  
 
 
-        // const companyPrice = responseJson["Global Quote"]['05. price']
-        // const companyChange = responseJson["Global Quote"]['09. change']
-        // const companyChangeInPercent = responseJson["Global Quote"]['10. change percent']
         const closePrices = new Map();
-        // TODO 
-        // ligne si desous marcher mais fait tout planter 
-        // const responsesClosePrice = await Promise.all(watchlist.Companies.map(company => fetch(app.base_url + "/tickersearch/price/" + company.symbol).then(response => response.json())));
-        // console.log(responsesClosePrice)
-        // Itérer sur toutes les entreprises dans la liste de surveillance
+        
         const socket = new WebSocket('wss://ws.finnhub.io?token=cgc550hr01qsquh3egv0cgc550hr01qsquh3egvg');
 
 socket.addEventListener('open', function (event) {
@@ -86,6 +78,7 @@ socket.addEventListener('message', function (event) {
 
     // Calculer le pourcentage de variation pour l'entreprise
     const percentageChange = calculatePercentageChange(previousPrice, price);
+    const priceChange = calculatePriceChange(previousPrice, price);
 
     // Mettre à jour les cartes de l'entreprise avec le nouveau prix et le nouveau taux de variation
     const companyCards = document.querySelectorAll(`.watchlist-company__company-price[data-symbol-ticker="${company.symbol}"]`);
@@ -93,47 +86,51 @@ socket.addEventListener('message', function (event) {
       for (const companyCard of companyCards) {
         companyCard.innerHTML = price;
         const companyCardPercentageChange = companyCard.parentElement.querySelector('.watchlist-company__company-price-change-pourcent');
+
+        if (percentageChange < '0' && priceChange < '0') {
+          companyCard.parentElement.querySelector('.watchlist-company__company-price-change-pourcent').style.color = 'red'
+          companyCard.parentElement.querySelector('.watchlist-company__company-price-change').style.color = 'red'
+        } else {
+          companyCard.parentElement.querySelector('.watchlist-company__company-price-change-pourcent').style.color = 'green'
+          companyCard.parentElement.querySelector('.watchlist-company__company-price-change').style.color = 'green'
+        }
+        // TODO faire cligoter en fonction du changement de prix (rouge ou vert)
+        companyCard.classList.add('price-change-blink');
+        setTimeout(() => {
+          companyCard.classList.remove('price-change-blink');
+        }, 500); // durée de l'animation en millisecondes
+
         companyCardPercentageChange.innerHTML = `${percentageChange}%`;
+
+        const companyCardPriceChange = companyCard.parentElement.querySelector('.watchlist-company__company-price-change');
+        companyCardPriceChange.innerHTML = `${priceChange}`
       }
     }
 
       function calculatePercentageChange(previousPrice, price) {
         const percentageChange = ((price - previousPrice) / previousPrice) *100 
-        console.log(price,previousPrice)
+        // console.log(price,previousPrice)
         return percentageChange.toFixed(2);
       }
 
-     
-      
-    
+      function calculatePriceChange (previousPrice, price) {
+        const priceChange = (price - previousPrice)
+        // console.log(price,previousPrice)
+        return priceChange.toFixed(2);
+      }
   }
-// }
+
     }
 })
-
-
-
-    
-
 // Unsubscribe
 let unsubscribe = function (symbol) {
   socket.send(JSON.stringify({ type: 'unsubscribe', symbol: symbol }));
 };
 
 
-//        
+     
         
        
-        // newCompanyCard.querySelector('.watchlist-company__company-price-change').innerHTML = companyChange
-        // newCompanyCard.querySelector('.watchlist-company__company-price-change-pourcent').innerHTML = companyChangeInPercent
-
-        // if (companyChangeInPercent < '0' && Number(companyChange) < 0) {
-        //     newCompanyCard.querySelector('.watchlist-company__company-price-change-pourcent').style.color = 'red'
-        //     newCompanyCard.querySelector('.watchlist-company__company-price-change').style.color = 'red'
-        // } else {
-        //     newCompanyCard.querySelector('.watchlist-company__company-price-change-pourcent').style.color = 'green'
-        //     newCompanyCard.querySelector('.watchlist-company__company-price-change').style.color = 'green'
-        // }
 
         newCompanyCard.querySelector('.fa-pen').addEventListener('click',companyCards.showEntryPriceInput);
         newCompanyCard.querySelector('.delete').addEventListener('click',companyCards.deletCompanyFromWatchList);
@@ -222,77 +219,8 @@ let unsubscribe = function (symbol) {
 
         companyCards.refreshCompanyCards()
     },
-    realTimePrice : async function (responseJson) {
-        const selectedWatchListId = localStorage.getItem('selectedWatchListId');
-    // Récupérer la liste de surveillance
-    const watchlist = await fetch(app.base_url + '/watchlist/' + selectedWatchListId).then(response => response.json());
-    // const socket = new WebSocket('wss://ws.finnhub.io?token=cgc550hr01qsquh3egv0cgc550hr01qsquh3egvg');
     
-    // // TODO 
-    // // ligne si desous marcher mais fait tout planter 
-    // // const responsesClosePrice = await Promise.all(watchlist.Companies.map(company => fetch(app.base_url + "/tickersearch/price/" + company.symbol).then(response => response.json())));
-    // // console.log(responsesClosePrice)
-    // // Itérer sur toutes les entreprises dans la liste de surveillance
-    // for (const company of watchlist.Companies) {
-
-
-    //   // Connection opened -> Subscribe
-    //   socket.addEventListener('open', function (event) {
-    //     socket.send(JSON.stringify({ type: 'subscribe', symbol: company.symbol }));
-    //   });
-
-    //   //TODO 
-    // //   for (let i = 0; i < responsesClosePrice.length; i++) {
-    // //     const company = watchlist.Companies[i];
-    // //     const responseJsonClose = responsesClosePrice[i];
-    // //     console.log(responseJsonClose)
-    // //     // Listen for messages
-    // // } une piste 
-
-    
-    //   socket.addEventListener('message', function (event) {
-    //     // console.log('Message from server ', event.data);
-    //     const response = JSON.parse(event.data);
-    //     const price = response.data[0].p;
-    //     const symbol = response.data[0].s;
-    //     // for (const closePrice of responsesClosePrice.c) {
-    //     //     console.log('yaaaa' + closePrice)
-    //     // }
-    //     // const previousPrices = responseJson.c; //ici mettre le prix qu'il yavais a la precedent cloture ! 
-       
-
-        
-
-    //     function calculatePercentageChange(previousPrice, price) {
-    //         const percentageChange = ((price - previousPrice) / previousPrice) ;
-    //         return percentageChange.toFixed(2);
-    //       }
-
-    //     if (company.symbol === symbol) {
-    //         const companyCard = document.querySelector(`.watchlist-company__company-price[data-symbol-ticker="${company.symbol}"]`);
-    //         // Mettre à jour la valeur du prix dans l'élément de carte de l'entreprise
-    //         if(companyCard) {
-    //         companyCard.innerHTML = price;
-            
-            
-          
-    //         const percentageChange = calculatePercentageChange(previousPrices, price);
-          
-
-          
-            
-    //         console.log(percentageChange + '%' + symbol)
-    //         }
-    //     }
-
-    //   });
-
-    //   // Unsubscribe
-    //   var unsubscribe = function (symbol) {
-    //     socket.send(JSON.stringify({ type: 'unsubscribe', symbol: symbol }));
-    //   };
-    // }
-  },
+  
     
 
 }
