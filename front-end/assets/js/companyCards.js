@@ -26,45 +26,103 @@ const companyCards = {
         const responseJson = await response.json()
         
        
-        console.log(responseJson)
+       
+        // companyCards.realTimePrice(responseJson)
+        const selectedWatchListId = localStorage.getItem('selectedWatchListId');
+        const watchlist = await fetch(app.base_url + '/watchlist/'+ selectedWatchListId);
+        const watchlistJson = await watchlist.json()
+        // let closePrices = [];
+         const responsesClosePrice = await fetch(app.base_url + "/tickersearch/price/" + company.symbol)
+         const responsesClosePriceJson = await responsesClosePrice.json()
+         const previousPrices = responsesClosePriceJson.pc
+         
+        //  closePrices[company.symbol] = responsesClosePriceJson.pc
+        //  console.log(closePrices)
+
+ 
+
+
         // const companyPrice = responseJson["Global Quote"]['05. price']
         // const companyChange = responseJson["Global Quote"]['09. change']
         // const companyChangeInPercent = responseJson["Global Quote"]['10. change percent']
+        const closePrices = new Map();
+        // TODO 
+        // ligne si desous marcher mais fait tout planter 
+        // const responsesClosePrice = await Promise.all(watchlist.Companies.map(company => fetch(app.base_url + "/tickersearch/price/" + company.symbol).then(response => response.json())));
+        // console.log(responsesClosePrice)
+        // Itérer sur toutes les entreprises dans la liste de surveillance
+        const socket = new WebSocket('wss://ws.finnhub.io?token=cgc550hr01qsquh3egv0cgc550hr01qsquh3egvg');
+
+socket.addEventListener('open', function (event) {
+  for (const company of watchlistJson.Companies) {
+    socket.send(JSON.stringify({ type: 'subscribe', symbol: company.symbol }));
+
+  }
+});
+
+for (const company of watchlistJson.Companies) {
+  // Récupérer le prix de clôture pour l'entreprise
+  const responseClosePrice = await fetch(app.base_url + "/tickersearch/price/" + company.symbol);
+  const responseClosePriceJson = await responseClosePrice.json();
+  const previousPrice = responseClosePriceJson.pc;
+
+  // Stocker le prix de clôture pour l'entreprise dans la map
+  closePrices.set(company.symbol, previousPrice);
+}
+
+socket.addEventListener('message', function (event) {
+  // console.log('Message from server ', event.data);
+  const response = JSON.parse(event.data);
+  data =response.data
+  for (const item of data) {
+    const price = item.p;
+    const symbol = item.s;
+
+    const company = watchlistJson.Companies.find(c => c.symbol === symbol);
+
+  if (company) {
+    // Récupérer le prix de clôture pour l'entreprise à partir de la map
+    const previousPrice = closePrices.get(company.symbol);
+
+    // Calculer le pourcentage de variation pour l'entreprise
+    const percentageChange = calculatePercentageChange(previousPrice, price);
+
+    // Mettre à jour les cartes de l'entreprise avec le nouveau prix et le nouveau taux de variation
+    const companyCards = document.querySelectorAll(`.watchlist-company__company-price[data-symbol-ticker="${company.symbol}"]`);
+    if (companyCards.length > 0) {
+      for (const companyCard of companyCards) {
+        companyCard.innerHTML = price;
+        const companyCardPercentageChange = companyCard.parentElement.querySelector('.watchlist-company__company-price-change-pourcent');
+        companyCardPercentageChange.innerHTML = `${percentageChange}%`;
+      }
+    }
+
+      function calculatePercentageChange(previousPrice, price) {
+        const percentageChange = ((price - previousPrice) / previousPrice) *100 
+        console.log(price,previousPrice)
+        return percentageChange.toFixed(2);
+      }
+
+     
+      
+    
+  }
+// }
+    }
+})
 
 
-
-//         const socket = new WebSocket('wss://ws.finnhub.io?token=cgc550hr01qsquh3egv0cgc550hr01qsquh3egvg'); 
-
-// // Connection opened -> Subscribe
-// socket.addEventListener('open', function (event) {
 
     
-//     socket.send(JSON.stringify({'type':'subscribe', 'symbol': company.symbol}))
-//     // socket.send(JSON.stringify({'type':'subscribe', 'symbol': 'BINANCE:BTCUSDT'}))
-//     // socket.send(JSON.stringify({'type':'subscribe', 'symbol': 'IC MARKETS:1'}))
-// });
 
-// // Listen for messages
-// socket.addEventListener('message', function (event) {
-//     console.log('Message from server ', event.data);
-//     const response = JSON.parse(event.data);
-//   const price = response.data[0].p;
-  
- 
-//   // Sélectionnez l'élément de carte de l'entreprise existant à mettre à jour
-// const companyCard = document.querySelector('.watchlist-company__company-price');
+// Unsubscribe
+let unsubscribe = function (symbol) {
+  socket.send(JSON.stringify({ type: 'unsubscribe', symbol: symbol }));
+};
 
-// // Mettre à jour la valeur du prix dans l'élément de carte de l'entreprise
-// companyCard.innerHTML = price;
 
- 
-// });
-
-// // Unsubscribe
-//  var unsubscribe = function(symbol) {
-//     socket.send(JSON.stringify({'type':'unsubscribe','symbol': symbol}))
-// }
-        companyCards.realTimePrice(responseJson)
+//        
+        
        
         // newCompanyCard.querySelector('.watchlist-company__company-price-change').innerHTML = companyChange
         // newCompanyCard.querySelector('.watchlist-company__company-price-change-pourcent').innerHTML = companyChangeInPercent
@@ -88,11 +146,7 @@ const companyCards = {
         newCompanyCard.querySelector('.watchlist-company__company-price').dataset.symbolTicker = company.symbol;
 
 
-        // const updateInput = newCompanyCard.querySelectorAll('.entryprice-input')
-        // for (const input of updateInput) {
-        //     input.addEventListener('submit', (event) => companyCards.refeshCards(event))
-
-        // }
+       
 
         const companyCardsContainer = document.querySelector('.company-cards');
         
@@ -172,72 +226,72 @@ const companyCards = {
         const selectedWatchListId = localStorage.getItem('selectedWatchListId');
     // Récupérer la liste de surveillance
     const watchlist = await fetch(app.base_url + '/watchlist/' + selectedWatchListId).then(response => response.json());
-    const socket = new WebSocket('wss://ws.finnhub.io?token=cgc550hr01qsquh3egv0cgc550hr01qsquh3egvg');
+    // const socket = new WebSocket('wss://ws.finnhub.io?token=cgc550hr01qsquh3egv0cgc550hr01qsquh3egvg');
     
-    // TODO 
-    // ligne si desous marcher mais fait tout planter 
-    // const responsesClosePrice = await Promise.all(watchlist.Companies.map(company => fetch(app.base_url + "/tickersearch/price/" + company.symbol).then(response => response.json())));
-    // console.log(responsesClosePrice)
-    // Itérer sur toutes les entreprises dans la liste de surveillance
-    for (const company of watchlist.Companies) {
+    // // TODO 
+    // // ligne si desous marcher mais fait tout planter 
+    // // const responsesClosePrice = await Promise.all(watchlist.Companies.map(company => fetch(app.base_url + "/tickersearch/price/" + company.symbol).then(response => response.json())));
+    // // console.log(responsesClosePrice)
+    // // Itérer sur toutes les entreprises dans la liste de surveillance
+    // for (const company of watchlist.Companies) {
 
 
-      // Connection opened -> Subscribe
-      socket.addEventListener('open', function (event) {
-        socket.send(JSON.stringify({ type: 'subscribe', symbol: company.symbol }));
-      });
+    //   // Connection opened -> Subscribe
+    //   socket.addEventListener('open', function (event) {
+    //     socket.send(JSON.stringify({ type: 'subscribe', symbol: company.symbol }));
+    //   });
 
-      //TODO 
-    //   for (let i = 0; i < responsesClosePrice.length; i++) {
-    //     const company = watchlist.Companies[i];
-    //     const responseJsonClose = responsesClosePrice[i];
-    //     console.log(responseJsonClose)
-    //     // Listen for messages
-    // } une piste 
+    //   //TODO 
+    // //   for (let i = 0; i < responsesClosePrice.length; i++) {
+    // //     const company = watchlist.Companies[i];
+    // //     const responseJsonClose = responsesClosePrice[i];
+    // //     console.log(responseJsonClose)
+    // //     // Listen for messages
+    // // } une piste 
 
     
-      socket.addEventListener('message', function (event) {
-        console.log('Message from server ', event.data);
-        const response = JSON.parse(event.data);
-        const price = response.data[0].p;
-        const symbol = response.data[0].s;
-        // for (const closePrice of responsesClosePrice.c) {
-        //     console.log('yaaaa' + closePrice)
-        // }
-        const previousPrices = responseJson.c; //ici mettre le prix qu'il yavais a la precedent cloture ! 
+    //   socket.addEventListener('message', function (event) {
+    //     // console.log('Message from server ', event.data);
+    //     const response = JSON.parse(event.data);
+    //     const price = response.data[0].p;
+    //     const symbol = response.data[0].s;
+    //     // for (const closePrice of responsesClosePrice.c) {
+    //     //     console.log('yaaaa' + closePrice)
+    //     // }
+    //     // const previousPrices = responseJson.c; //ici mettre le prix qu'il yavais a la precedent cloture ! 
        
 
         
 
-        function calculatePercentageChange(previousPrice, price) {
-            const percentageChange = ((price - previousPrice) / previousPrice) ;
-            return percentageChange.toFixed(2);
-          }
+    //     function calculatePercentageChange(previousPrice, price) {
+    //         const percentageChange = ((price - previousPrice) / previousPrice) ;
+    //         return percentageChange.toFixed(2);
+    //       }
 
-        if (company.symbol === symbol) {
-            const companyCard = document.querySelector(`.watchlist-company__company-price[data-symbol-ticker="${company.symbol}"]`);
-            // Mettre à jour la valeur du prix dans l'élément de carte de l'entreprise
-            if(companyCard) {
-            companyCard.innerHTML = price;
+    //     if (company.symbol === symbol) {
+    //         const companyCard = document.querySelector(`.watchlist-company__company-price[data-symbol-ticker="${company.symbol}"]`);
+    //         // Mettre à jour la valeur du prix dans l'élément de carte de l'entreprise
+    //         if(companyCard) {
+    //         companyCard.innerHTML = price;
             
             
           
-            const percentageChange = calculatePercentageChange(previousPrices, price);
+    //         const percentageChange = calculatePercentageChange(previousPrices, price);
           
 
           
             
-            console.log(percentageChange + '%' + symbol)
-            }
-        }
+    //         console.log(percentageChange + '%' + symbol)
+    //         }
+    //     }
 
-      });
+    //   });
 
-      // Unsubscribe
-      var unsubscribe = function (symbol) {
-        socket.send(JSON.stringify({ type: 'unsubscribe', symbol: symbol }));
-      };
-    }
+    //   // Unsubscribe
+    //   var unsubscribe = function (symbol) {
+    //     socket.send(JSON.stringify({ type: 'unsubscribe', symbol: symbol }));
+    //   };
+    // }
   },
     
 
