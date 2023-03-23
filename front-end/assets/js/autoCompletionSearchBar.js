@@ -70,14 +70,20 @@ autoCompletionSearchBar = {
 
     displayLoader: function() {
         const div = document.createElement("div");
-        div.classList.add('loader');
+        div.classList.add('loader-border');
+        const divLoader = document.createElement("div");
+        divLoader.classList.add('loader');
         const ul = document.getElementById("suggestions");
+        div.appendChild(divLoader)
         ul.appendChild(div);
+
     },
     
     hideLoader: function() {
-        const remove = document.querySelector('.loader');
-        remove.classList.remove('loader')
+        const removeLoader = document.querySelector('.loader');
+        removeLoader.classList.remove('loader')
+        const removeBorders = document.querySelector('.loader-border');
+        removeBorders.classList.remove('loader-border');
     },
     
 }
