@@ -73,10 +73,21 @@ socket.addEventListener('message', function (event) {
   // console.log('Message from server ', event.data);
   const response = JSON.parse(event.data);
   data =response.data
+  if (data) {
+    
+    
   for (const item of data) {
     const price = item.p;
     const symbol = item.s;
-
+  // if (price) {
+  //   const skeletons = document.querySelectorAll('.watchlist-company__company-price')
+  //   for (const skeleton of skeletons) {
+  //   skeleton.classList.remove('skeleton');
+  //   skeleton.classList.remove('skeleton-text');
+  //   }
+  // }
+  const skeletons = document.querySelectorAll('.watchlist-company__company-price')
+  
     const company = watchlistJson.Companies.find(c => c.symbol === symbol);
 
   if (company) {
@@ -91,7 +102,33 @@ socket.addEventListener('message', function (event) {
     const companyCards = document.querySelectorAll(`.watchlist-company__company-price[data-symbol-ticker="${company.symbol}"]`);
     if (companyCards.length > 0) {
       for (const companyCard of companyCards) {
+        const isPriceAlreadyDisplayed = companyCard.innerHTML.trim() !== "";
         companyCard.innerHTML = price;
+
+        if (!isPriceAlreadyDisplayed) {
+          // Si le prix n'était pas déjà affiché, ajouter la classe "skeleton"
+          companyCard.classList.add('skeleton');
+          companyCard.classList.add('skeleton-text');
+    
+          // Ajouter la classe "skeleton" également aux éléments de changement de prix
+          const priceChangeElements = companyCard.parentElement.querySelectorAll('.watchlist-company__company-price-change, .watchlist-company__company-price-change-pourcent');
+          for (const priceChangeElement of priceChangeElements) {
+            priceChangeElement.classList.add('skeleton');
+            priceChangeElement.classList.add('skeleton-text-small');
+          }
+        } else {
+          // Si le prix était déjà affiché, supprimer la classe "skeleton" uniquement de l'élément concerné
+          companyCard.classList.remove('skeleton');
+          companyCard.classList.remove('skeleton-text');
+    
+          // Supprimer la classe "skeleton" également des éléments de changement de prix
+          const priceChangeElements = companyCard.parentElement.querySelectorAll('.watchlist-company__company-price-change, .watchlist-company__company-price-change-pourcent');
+          for (const priceChangeElement of priceChangeElements) {
+            priceChangeElement.classList.remove('skeleton');
+            priceChangeElement.classList.remove('skeleton-text-small');
+          }
+        }
+        
         const companyCardPercentageChange = companyCard.parentElement.querySelector('.watchlist-company__company-price-change-pourcent');
 
         if (percentageChange < '0' && priceChange < '0') {
@@ -128,6 +165,7 @@ socket.addEventListener('message', function (event) {
   }
 
     }
+  }
 })
 // Unsubscribe
 let unsubscribe = function (symbol) {
@@ -136,26 +174,16 @@ let unsubscribe = function (symbol) {
 
           const responsesCompanyLogo = await fetch(app.base_url + "/tickersearch/logo/" + company.symbol)
           const responsesCompanyLogoJson = await responsesCompanyLogo.json()
-          console.log(responsesCompanyLogoJson.logo)
+          
 
           const imgElement = newCompanyCard.querySelector('.watchlist-company__logo');
           if (imgElement) {
-            console.log(imgElement)
+            
             imgElement.setAttribute('src', `https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/${company.symbol}.svg`);
           }
 
 
-          
-//    document.addEventListener("DOMContentLoaded", () => { newCompanyCard
-//   const imgElement = document.querySelector('.watchlist-company__logo');
-  
-//   // Attendre que l'image soit chargée
-//   imgElement.addEventListener("load", () => {
-//     // Modifier l'attribut src de l'élément img
-//     console.log(company.symbol)
-//     imgElement.setAttribute('src', `https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/${company.symbol}.svg`);
-//   });
-// });
+
        
 
         newCompanyCard.querySelector('.fa-pen').addEventListener('click',companyCards.showEntryPriceInput);
