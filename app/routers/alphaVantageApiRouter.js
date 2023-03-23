@@ -5,6 +5,8 @@ const alphaVantageApiController = require('../controllers/alphaVantageApiControl
 
 alphaVantageApiRouter.get('/:caractertosearch', alphaVantageApiController.tickerSearch);
 alphaVantageApiRouter.get('/price/:symbol', alphaVantageApiController.searchedCompanyPriceInformations);
+alphaVantageApiRouter.get('/logo/:symbol', alphaVantageApiController.companyLogo);
+
 
 
 

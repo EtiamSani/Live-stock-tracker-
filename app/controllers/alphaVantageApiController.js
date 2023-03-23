@@ -46,7 +46,28 @@ const alphaVantageApiController = {
         //     res.status(500).render('error', error);
         //   }
     },
-
+    companyLogo : async (req,res) => {
+   
+      const symbol = req.params.symbol
+      try {
+        const api_key = finnhub.ApiClient.instance.authentications["api_key"];
+        api_key.apiKey = "cgc550hr01qsquh3egv0cgc550hr01qsquh3egvg";
+        const finnhubClient = new finnhub.DefaultApi();
+        
+        finnhubClient.companyProfile2({'symbol': symbol}, (error, data, response) => {
+          if (error) {
+            console.error(error);
+            res.status(500).render("error", error);
+          } else {
+            res.json(data);
+          }
+        });
+      } catch (error) {
+        console.error(error);
+        res.status(500).render("error", error);
+      }
+    }
+      
 }
 
 module.exports = alphaVantageApiController

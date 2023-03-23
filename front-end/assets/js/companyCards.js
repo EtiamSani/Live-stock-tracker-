@@ -57,9 +57,16 @@ for (const company of watchlistJson.Companies) {
   const responseClosePrice = await fetch(app.base_url + "/tickersearch/price/" + company.symbol);
   const responseClosePriceJson = await responseClosePrice.json();
   const previousPrice = responseClosePriceJson.pc;
+  // console.log(previousPrice)
 
   // Stocker le prix de clôture pour l'entreprise dans la map
   closePrices.set(company.symbol, previousPrice);
+
+  
+  
+
+   
+  
 }
 
 socket.addEventListener('message', function (event) {
@@ -127,9 +134,28 @@ let unsubscribe = function (symbol) {
   socket.send(JSON.stringify({ type: 'unsubscribe', symbol: symbol }));
 };
 
+          const responsesCompanyLogo = await fetch(app.base_url + "/tickersearch/logo/" + company.symbol)
+          const responsesCompanyLogoJson = await responsesCompanyLogo.json()
+          console.log(responsesCompanyLogoJson.logo)
 
-     
-        
+          const imgElement = newCompanyCard.querySelector('.watchlist-company__logo');
+          if (imgElement) {
+            console.log(imgElement)
+            imgElement.setAttribute('src', `https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/${company.symbol}.svg`);
+          }
+
+
+          
+//    document.addEventListener("DOMContentLoaded", () => { newCompanyCard
+//   const imgElement = document.querySelector('.watchlist-company__logo');
+  
+//   // Attendre que l'image soit chargée
+//   imgElement.addEventListener("load", () => {
+//     // Modifier l'attribut src de l'élément img
+//     console.log(company.symbol)
+//     imgElement.setAttribute('src', `https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/${company.symbol}.svg`);
+//   });
+// });
        
 
         newCompanyCard.querySelector('.fa-pen').addEventListener('click',companyCards.showEntryPriceInput);
@@ -141,6 +167,7 @@ let unsubscribe = function (symbol) {
         newCompanyCard.querySelector('.delete').dataset.deleteId = company.code_company;
 
         newCompanyCard.querySelector('.watchlist-company__company-price').dataset.symbolTicker = company.symbol;
+        newCompanyCard.querySelector('.watchlist-company__logo').dataset.symbolTicker = company.symbol;
 
 
        
