@@ -20,13 +20,13 @@ require('./app/models/models')
 
 const watchListRouter =require('./app/routers/watchListRouter')
 const companyRouter = require('./app/routers/companyRouter')
-const alphaVantageApiRouter = require('./app/routers/alphaVantageApiRouter')
+const finnhubApiRouter = require('./app/routers/finnhubApiRouter')
 const brandFetchApiRouter = require('./app/routers/brandFetchApiRouter')
 
 
 app.use('/watchlist',watchListRouter);
 app.use('/company',companyRouter);
-app.use('/tickersearch',alphaVantageApiRouter)
+app.use('/tickersearch',finnhubApiRouter)
 app.use('/logo',brandFetchApiRouter)
 
 

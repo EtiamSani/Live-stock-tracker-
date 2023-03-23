@@ -13,11 +13,13 @@ autoCompletionSearchBar = {
         
         autoCompletionSearchBar.removeLiInSearchBar();
         const ul = document.getElementById("suggestions");
+        autoCompletionSearchBar.displayLoader()
         if (query) {
+            // autoCompletionSearchBar.displayLoader()
         const reponse = await fetch(app.base_url + "/tickersearch/" + query)
         reponseJson = await reponse.json();
             if (reponseJson) {
-                for (const results of reponseJson) {
+                for (const results of reponseJson.result) {
                     const div = document.createElement("div");
                     div.classList.add('search-result');
 
@@ -28,22 +30,24 @@ autoCompletionSearchBar = {
                     
                     const divSymbol = document.createElement("div");
                     divSymbol.classList.add('search-result-symbol');
-                    const newLiInSearchBarForSymbol = autoCompletionSearchBar.creatLiInSearchBar(results["1. symbol"] );
+                    const newLiInSearchBarForSymbol = autoCompletionSearchBar.creatLiInSearchBar(results["symbol"] );
                     divSymbol.appendChild(newLiInSearchBarForSymbol);
                 
                     const divName = document.createElement("div");
                     divName.classList.add('search-result-name');
-                    const newLiInSearchBarForName = autoCompletionSearchBar.creatLiInSearchBar(results["2. name"] );
+                    const newLiInSearchBarForName = autoCompletionSearchBar.creatLiInSearchBar(results["description"] );
                     divName.appendChild(newLiInSearchBarForName);
 
                     const divType = document.createElement("div");
                     divType.classList.add('search-result-type');
-                    const newLiInSearchBarForType = autoCompletionSearchBar.creatLiInSearchBar(results["3. type"] );
+                    const newLiInSearchBarForType = autoCompletionSearchBar.creatLiInSearchBar(results["type"] );
                     divType.appendChild(newLiInSearchBarForType);
                 
                     div.append(divName, divSymbol,divType);
                     ul.appendChild(div);
                 }
+                autoCompletionSearchBar.hideLoader()
+
     } else {
         console.error('JSON data is empty');
       }
@@ -62,6 +66,18 @@ autoCompletionSearchBar = {
         while (ul.firstChild) {
             ul.removeChild(ul.firstChild);
         }
+    },
+
+    displayLoader: function() {
+        const div = document.createElement("div");
+        div.classList.add('loader');
+        const ul = document.getElementById("suggestions");
+        ul.appendChild(div);
+    },
+    
+    hideLoader: function() {
+        const remove = document.querySelector('.loader');
+        remove.classList.remove('loader')
     },
     
 }

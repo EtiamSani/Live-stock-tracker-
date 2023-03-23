@@ -6,16 +6,36 @@ const finnhub = require('finnhub');
 
 const alphaVantageApiController = { 
     tickerSearch : async (req,res) => {
-        const symbol = req.params.caractertosearch
-        try {    
-        const response = await axios.get(`${URL_SYMBOL_SEARCH}${symbol}&apikey=${API_KEY}`)    
-        const tickerSearchResults = response.data.bestMatches
-        res.json(tickerSearchResults)
+        // const symbol = req.params.caractertosearch
+        // try {    
+        // const response = await axios.get(`${URL_SYMBOL_SEARCH}${symbol}&apikey=${API_KEY}`)    
+        // const tickerSearchResults = response.data.bestMatches
+        // res.json(tickerSearchResults)
         
+        // } catch (error) {
+        //     console.error(error);
+        //     res.status(500).render('error', error);
+        //   }
+
+        const symbol = req.params.caractertosearch
+        try {
+          const api_key = finnhub.ApiClient.instance.authentications["api_key"];
+          api_key.apiKey = "cgc550hr01qsquh3egv0cgc550hr01qsquh3egvg";
+          const finnhubClient = new finnhub.DefaultApi();
+      
+          finnhubClient.symbolSearch(symbol, (error, data, response) => {
+            if (error) {
+              console.error(error);
+              res.status(500).render("error", error);
+            } else {
+              res.json(data);
+            }
+          });
         } catch (error) {
-            console.error(error);
-            res.status(500).render('error', error);
-          }
+          console.error(error);
+          res.status(500).render("error", error);
+        }
+
     },
     searchedCompanyPriceInformations : async (req,res) => {
         const symbol = req.params.symbol
