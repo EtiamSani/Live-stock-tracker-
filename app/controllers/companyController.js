@@ -1,6 +1,5 @@
-const Watch_list = require('../models/watch_list');
-const Company = require('../models/company');
-const Watch_listCompany = require('../models/watch_listCompant')
+const companyDatamapper = require("../model/company");
+const watchListDatamapper = require("../model/watchList");
 const errors = require('../modules/errors');
 
 
@@ -8,10 +7,9 @@ const companyController = {
     getAllCompany : async (req,res) => {
         
         try {
-            const allCompanies = await Company.findAll({
-                include:  Watch_list
-            })
+            const allCompanies = await companyDatamapper.findAll()
             res.json(allCompanies)
+            console.log(allCompanies)
             }catch(err) {
                 errors.error500(res, err);
             }
@@ -19,7 +17,7 @@ const companyController = {
     getOneCompany : async (req,res) => {
         const companyId = Number(req.params.companyId);
         try {
-            const oneCompany = await Company.findByPk(companyId,{
+            const oneCompany = await companyDatamapper.findByPk(companyId,{
                 include:  Watch_list
             })
             res.json(oneCompany)
@@ -35,7 +33,7 @@ const companyController = {
         const logo = req.body.logo
         
         try {
-            const oneCompany = await Company.create({name, symbol, entry_price, logo, code_company })
+            const oneCompany = await companyDatamapper.create({name, symbol, entry_price, logo, code_company })
             res.json(oneCompany)
             }catch(err) {
                 errors.error500(res, err);
@@ -44,7 +42,7 @@ const companyController = {
     deleteCompany :  async (req,res) => {
         const companyId = Number(req.params.companyId);
         try {
-            const deleteCompany = await Company.findByPk(companyId,{
+            const deleteCompany = await companyDatamapper.findByPk(companyId,{
                 include:  Watch_list
             })
             await deleteCompany.destroy()
@@ -62,7 +60,7 @@ const companyController = {
             
         }
         try {
-            const entryPrice = await Company.findByPk(companyId);
+            const entryPrice = await companyDatamapper.findByPk(companyId);
             
             await entryPrice.update(enteryPriceData);
             res.json(entryPrice)
@@ -75,7 +73,7 @@ const companyController = {
         const symbol = req.params.symbol   
         console.log(symbol)
         
-        const findCompanyWithSymbol = await Company.findOne({ where: { symbol: symbol } })
+        const findCompanyWithSymbol = await companyDatamapper.findCompanyBySymbol(symbol)
         res.json(findCompanyWithSymbol)
     }
 }

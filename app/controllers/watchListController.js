@@ -1,39 +1,47 @@
-const Watch_list = require('../models/watch_list');
-const Company = require('../models/company');
-const errors = require('../modules/errors');
 
+
+const companyDatamapper = require("../model/company");
+const watchListDatamapper = require("../model/watchList");
+
+const errors = require('../modules/errors');
+// OK
 const watchListController = { 
-    getAll : async (req,res) => {
+    getAll : async (_,res) => {
         try {
-        const allLists = await Watch_list.findAll()
+        const allLists = await watchListDatamapper.findAll()
         res.json(allLists)
         }catch(err) {
             errors.error500(res, err);
         }
     },
+    // OK
     creatList : async (req,res) => {
-        const name = req.body.name;
+       
+        const newWatchListData = {
+            name : req.body.name,
+            investor_id : req.body.investor_id
+        }
 
         try {
-            const list = await Watch_list.create({name});
+            const list = await watchListDatamapper.create(newWatchListData);
             res.json(list)
         } catch(err) {
             errors.error500(res, err);
         }
     },
+    // OK 
     updateList : async (req,res) => {
         const listId = Number(req.params.listId);
         
-        const listData = {
-            name: req.body.name, 
-            
-        }
+        const inputData = {
+            name: req.body.name
+          };
+        
+        
         
         try {
-            const list = await Watch_list.findByPk(listId);
-            
-            await list.update(listData);
-            res.json(list)
+            const updatedList = await watchListDatamapper.update({ id: listId }, inputData);
+            res.json(updatedList);
         } catch(err) {
             errors.error500(res, err);
         }
@@ -42,11 +50,7 @@ const watchListController = {
         const listId = Number(req.params.listId);
 
         try {
-            const list = await Watch_list.findByPk(listId,{
-                include:  Company 
-               
-                
-            });
+            const list = await watchListDatamapper.findCompanyInWatchlist(listId);
             res.json(list)
         }catch(err) {
             errors.error500(res, err);
@@ -56,7 +60,7 @@ const watchListController = {
         const listId = Number(req.params.listId);
 
         try {
-            const listToDelet = await Watch_list.findByPk(listId);
+            const listToDelet = await watchListDatamapper.findByPk(listId);
             await listToDelet.destroy()
             res.json(listToDelet);
 
@@ -67,13 +71,13 @@ const watchListController = {
     addCompany : async (req,res) => {
         try {
         const listId = Number(req.params.listId);
-        const companyId = Number(req.body.code_company);
-        const watchListToFill = await Watch_list.findByPk(listId, {include : Company});
+        const companyId = Number(req.body.id);
+        const watchListToFill = await watchListDatamapper.findByPk(listId, {include : Company});
 
         if (!watchListToFill) {
             return res.status(404).json({ error: "Watch list not found" });
           }
-        const CompanyToAdd = await Company.findByPk(companyId);
+        const CompanyToAdd = await companyDatamapper.findByPk(companyId);
 
         if (!CompanyToAdd) {
             return res.status(404).json({ error: "Company not found" });

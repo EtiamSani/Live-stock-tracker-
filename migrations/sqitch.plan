@@ -1,0 +1,4 @@
+%syntax-version=1.0.0
+%project=stocktracker
+
+1.create_tables 2023-03-31T07:54:08Z Etudiant O'clock <student@teleporter> # création des tables

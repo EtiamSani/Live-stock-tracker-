@@ -46,13 +46,13 @@ const companyCards = {
         const socket = new WebSocket('wss://ws.finnhub.io?token=cgc550hr01qsquh3egv0cgc550hr01qsquh3egvg');
 
 socket.addEventListener('open', function (event) {
-  for (const company of watchlistJson.Companies) {
+  for (const company of watchlistJson) {
     socket.send(JSON.stringify({ type: 'subscribe', symbol: company.symbol }));
 
   }
 });
 
-for (const company of watchlistJson.Companies) {
+for (const company of watchlistJson) {
   // Récupérer le prix de clôture pour l'entreprise
   const responseClosePrice = await fetch(app.base_url + "/tickersearch/price/" + company.symbol);
   const responseClosePriceJson = await responseClosePrice.json();
@@ -191,8 +191,8 @@ let unsubscribe = function (symbol) {
 
         
         newCompanyCard.querySelector('.update-entrey-price-form').addEventListener('submit', companyCards.updateEntryPrice);
-        newCompanyCard.querySelector('.entryprice-input').dataset.companyId = company.code_company;
-        newCompanyCard.querySelector('.delete').dataset.deleteId = company.code_company;
+        newCompanyCard.querySelector('.entryprice-input').dataset.companyId = company.id;
+        newCompanyCard.querySelector('.delete').dataset.deleteId = company.id;
 
         newCompanyCard.querySelector('.watchlist-company__company-price').dataset.symbolTicker = company.symbol;
         newCompanyCard.querySelector('.watchlist-company__logo').dataset.symbolTicker = company.symbol;
@@ -253,8 +253,8 @@ let unsubscribe = function (symbol) {
   const watchlistJson = await watchlist.json();
 
   // Mettre à jour chaque carte d'entreprise
-  for (const company of watchlistJson.Companies) {
-       const idCompany = company.code_company
+  for (const company of watchlistJson) {
+       const idCompany = company.id
     
     companyCards.makeCompanyCard(company);
 

@@ -1,7 +1,7 @@
-
 require('dotenv').config();
 const express = require('express');
-const PORT = process.env.PORT || 1337;
+const debug = require("debug")("server");
+const PORT = process.env.PGPORT ?? 3000;
 const cors = require('cors');
 const multer = require('multer');
 const bodyParser = multer();
@@ -15,19 +15,19 @@ app.use(cors());
 app.use( bodyParser.none() );
 
 
-require('./app/models/models')
+
 
 
 const watchListRouter =require('./app/routers/watchListRouter')
 const companyRouter = require('./app/routers/companyRouter')
 const finnhubApiRouter = require('./app/routers/finnhubApiRouter')
-const brandFetchApiRouter = require('./app/routers/brandFetchApiRouter')
+
 
 
 app.use('/watchlist',watchListRouter);
 app.use('/company',companyRouter);
 app.use('/tickersearch',finnhubApiRouter)
-app.use('/logo',brandFetchApiRouter)
+
 
 
 

@@ -59,7 +59,7 @@ const watchList = {
         newWatchListNameButton.querySelector('.watchlist-name-button').innerHTML =  `${watchListName.name} <i class="fa-solid fa-pen pen-for-update"></i> <i class="fa-solid fa-delete-left"></i> `;
         
         newWatchListNameButton.querySelector('.fa-delete-left').addEventListener('click', watchList.deleteWatchList);
-        newWatchListNameButton.querySelector('.watchlist-name-button').dataset.listId = watchListName.code_list;
+        newWatchListNameButton.querySelector('.watchlist-name-button').dataset.listId = watchListName.id;
 
         newWatchListNameButton.querySelector('.watchlist-name-button').addEventListener('click', watchList.clickedWatchListId)
        const buttons = newWatchListNameButton.querySelectorAll('.watchlist-name-button')
@@ -127,8 +127,10 @@ const watchList = {
         
         const response = await fetch(app.base_url + "/watchlist/" + idWatchList);
         const reponseJson = await response.json()
+        console.log(reponseJson)
+       
         watchList.makeWatchList(reponseJson)
-        for (const companies of reponseJson.Companies) {
+        for (const companies of reponseJson) {
             companyCards.makeCompanyCard(companies)  
         }
         
@@ -147,7 +149,7 @@ const watchList = {
     
         const findCompanyBySymbolResponeJson = await findCompanyBySymbolRespone.json();
         //une fois code_company recupérer on le met dans une varable 
-        const companyId = findCompanyBySymbolResponeJson.code_company
+        const companyId = findCompanyBySymbolResponeJson.id
     
         const formData = new FormData();
     formData.append('code_company', companyId);

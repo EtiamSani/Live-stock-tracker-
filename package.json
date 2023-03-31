@@ -2,10 +2,11 @@
   "name": "live-stock-tracker-",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "db:create": "psql -U django -d stocktracker -f /data/stocktracker.sql"
+    "start": "node server.js",
+    "dev": "DEBUG=* node server.js, db:pg"
   },
   "repository": {
     "type": "git",
@@ -21,11 +22,11 @@
     "axios": "^1.3.2",
     "bulma": "^0.9.4",
     "cors": "^2.8.5",
+    "debug": "^4.3.4",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "finnhub": "^1.2.16",
     "multer": "^1.4.5-lts.1",
-    "pg": "^8.9.0",
-    "sequelize": "^6.28.0"
+    "pg": "^8.9.0"
   }
 }
