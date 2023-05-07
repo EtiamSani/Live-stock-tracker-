@@ -2,7 +2,7 @@ const CoreDatamapper = require('./CoreDatamapper');
 const client = require('../db/pg');
 
 class WatchList extends CoreDatamapper {
-    tableName = 'watch_list';
+    tableName = 'watchlist';
 
     async findByCompany(id) {
         const preparedQuery = {
@@ -27,6 +27,18 @@ class WatchList extends CoreDatamapper {
 			JOIN watch_list w ON w.id = whc.watchlist_id
             WHERE w.id = $1;`,
             values: [id],
+        };
+
+        const result = await this.client.query(preparedQuery);
+
+        return result.rows;
+    }
+
+    async addCompanyToWatchlist({watchlistId,companyId}) {
+        const preparedQuery = {
+            text: `INSERT INTO watchlist_has_company (watchlist_id, company_id)
+            VALUES ($1,$2)`,
+            values: [watchlistId,companyId],
         };
 
         const result = await this.client.query(preparedQuery);

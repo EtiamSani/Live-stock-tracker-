@@ -2,6 +2,7 @@
 
 const companyDatamapper = require("../model/company");
 const watchListDatamapper = require("../model/watchList");
+const watchlistHasCompanyDatamapper = require("../model/watchListHasCompany");
 
 const errors = require('../modules/errors');
 // OK
@@ -31,7 +32,7 @@ const watchListController = {
     },
     // OK 
     updateList : async (req,res) => {
-        const listId = Number(req.params.listId);
+        const id = req.params.listId;
         
         const inputData = {
             name: req.body.name
@@ -40,12 +41,13 @@ const watchListController = {
         
         
         try {
-            const updatedList = await watchListDatamapper.update({ id: listId }, inputData);
+            const updatedList = await watchListDatamapper.update({ id}, inputData);
             res.json(updatedList);
         } catch(err) {
             errors.error500(res, err);
         }
     },
+
     findOneListWithStocks : async (req,res) => {
         const listId = Number(req.params.listId);
 
@@ -60,41 +62,28 @@ const watchListController = {
         const listId = Number(req.params.listId);
 
         try {
-            const listToDelet = await watchListDatamapper.findByPk(listId);
-            await listToDelet.destroy()
+            const listToDelet = await watchListDatamapper.delete(listId);
             res.json(listToDelet);
 
         }catch(err) {
             errors.error500(res, err);
         }
     },
-    addCompany : async (req,res) => {
+    //ok
+    addCompanyInWatchlist : async (req,res) => {
 
-            try {
-        const listId = Number(req.params.listId);
-        const companyId = Number(req.body.id);
-        const watchListToFill = await watchListDatamapper.findByPk(listId);
-       console.log('yaaaaaaaaaa',companyId)
-
-        if (!watchListToFill) {
-            return res.status(404).json({ error: "Watch list not found" });
-          }
-        const CompanyToAdd = await companyDatamapper.findByPk(companyId);
-        console.log(CompanyToAdd)
-
-        if (!CompanyToAdd) {
-            return res.status(404).json({ error: "Company not found" });
-          }
-          
-        await companyDatamapper.create(CompanyToAdd);
-        await watchListToFill.reload()
-        res.json(watchListToFill)
-
-        } catch(err) {
+        try {
+            const watchlistId = req.params.listId;
+            const companyId = req.params.companyId;
+            // Ajoutez l'entreprise existante à la liste de surveillance ici.
+            // Vous devez adapter cette partie en fonction de la structure de vos données et de vos relations de base de données.
+            const watchListToFill = await watchlistHasCompanyDatamapper.addCompanyToWatchlist({companyId,watchlistId});
+            res.json(watchListToFill);
+          } catch (err) {
             errors.error500(res, err);
-        }
-    }
+          }
 
+}
 }
 
 module.exports = watchListController

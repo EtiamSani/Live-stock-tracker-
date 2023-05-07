@@ -30,6 +30,20 @@ class WatchListHasCompany extends CoreDatamapper {
         return result.rows;
     }
 
+    async addCompanyToWatchlist({companyId,watchlistId}) {
+        console.log(companyId,watchlistId)
+        const preparedQuery = {
+            text: `INSERT INTO watchlist_has_company (company_id, watchlist_id)
+            VALUES ($1,$2)
+            RETURNING * ;`,
+            values: [companyId,watchlistId],
+        };
+
+        const result = await this.client.query(preparedQuery);
+
+        return result.rows;
+    }
+
 }
 
 module.exports = new WatchListHasCompany(client);

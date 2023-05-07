@@ -30,6 +30,7 @@ CREATE TABLE "investor"
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "nickname" TEXT NOT NULL UNIQUE,
     "email" email NOT NULL UNIQUE,
+    "updated_at" TIMESTAMPTZ DEFAULT NOW(), 
     "password" TEXT NOT NULL 
 );
 
@@ -38,6 +39,7 @@ CREATE TABLE "watchlist"
 (
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "name" TEXT NOT NULL,
+    "updated_at" TIMESTAMPTZ DEFAULT NOW(), 
     "investor_id" INT NOT NULL REFERENCES "investor"("id")  
 );
 
