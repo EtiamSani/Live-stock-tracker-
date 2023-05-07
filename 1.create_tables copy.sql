@@ -3,7 +3,7 @@
 BEGIN;
 
 
-DROP TABLE "company","watchlist","watchlist_has_company","investor";
+DROP TABLE "company","watch_list","watchlist_has_company","investor";
 
 DROP DOMAIN "positif", "email";
 

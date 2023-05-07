@@ -122,7 +122,7 @@ const watchList = {
     findAwatchListWithCompanies : async function (event) {
         companyCards.companyCardDisplayed = false;
         const idWatchList = event.target.closest('.watchlist-item').querySelector('.watchlist-name-button').dataset.listId;
-
+       
         watchList.clearWatchListContainer()
         
         const response = await fetch(app.base_url + "/watchlist/" + idWatchList);

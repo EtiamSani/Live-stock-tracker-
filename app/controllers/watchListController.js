@@ -50,7 +50,7 @@ const watchListController = {
         const listId = Number(req.params.listId);
 
         try {
-            const list = await watchListDatamapper.findCompanyInWatchlist(listId);
+            const list = await watchListDatamapper.findCompaniesInWatchlist(listId); 
             res.json(list)
         }catch(err) {
             errors.error500(res, err);
@@ -69,24 +69,28 @@ const watchListController = {
         }
     },
     addCompany : async (req,res) => {
-        try {
+
+            try {
         const listId = Number(req.params.listId);
         const companyId = Number(req.body.id);
-        const watchListToFill = await watchListDatamapper.findByPk(listId, {include : Company});
+        const watchListToFill = await watchListDatamapper.findByPk(listId);
+       console.log('yaaaaaaaaaa',companyId)
 
         if (!watchListToFill) {
             return res.status(404).json({ error: "Watch list not found" });
           }
         const CompanyToAdd = await companyDatamapper.findByPk(companyId);
+        console.log(CompanyToAdd)
 
         if (!CompanyToAdd) {
             return res.status(404).json({ error: "Company not found" });
           }
           
-        await watchListToFill.addCompany(CompanyToAdd);
+        await companyDatamapper.create(CompanyToAdd);
         await watchListToFill.reload()
         res.json(watchListToFill)
-        }catch(err) {
+
+        } catch(err) {
             errors.error500(res, err);
         }
     }

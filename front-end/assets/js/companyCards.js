@@ -232,7 +232,7 @@ let unsubscribe = function (symbol) {
         const symbolField = document.getElementById('symbolField');
         const nameField = document.getElementById('nameField');
         const addListForm = document.querySelector('#searchBarId');
-
+        console.log('addlistform',addListForm)
         symbolField.value = symbol;
         nameField.value = name;
 

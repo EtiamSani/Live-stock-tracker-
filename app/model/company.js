@@ -10,7 +10,7 @@ class Company extends CoreDatamapper {
             FROM company c
             JOIN watchlist_has_company whc ON c.id = whc.company_id
             JOIN watch_list w ON w.id = whc.watchlist_id
-            WHERE c.id = 1;`,
+            WHERE c.id = $1;`,
             values: [id],
         };
 
@@ -23,8 +23,6 @@ class Company extends CoreDatamapper {
         const preparedQuery = {
             text: `SELECT c.name, c.id
             FROM company c
-            JOIN watchlist_has_company whc ON c.id = whc.company_id
-            JOIN watch_list w ON w.id = whc.watchlist_id
             WHERE c.symbol = $1;`,
             values: [symbol],
         };

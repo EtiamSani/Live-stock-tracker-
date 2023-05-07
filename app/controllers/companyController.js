@@ -4,71 +4,79 @@ const errors = require('../modules/errors');
 
 
 const companyController = { 
+
+    //ok
     getAllCompany : async (req,res) => {
         
         try {
-            const allCompanies = await companyDatamapper.findAll()
-            res.json(allCompanies)
-            console.log(allCompanies)
+            const getAllCompanies = await companyDatamapper.findAll()
+            res.json(getAllCompanies)
+            
             }catch(err) {
                 errors.error500(res, err);
             }
     },
+    //ok
     getOneCompany : async (req,res) => {
         const companyId = Number(req.params.companyId);
         try {
-            const oneCompany = await companyDatamapper.findByPk(companyId,{
-                include:  Watch_list
-            })
+            const oneCompany = await companyDatamapper.findByPk(companyId)
+
             res.json(oneCompany)
             }catch(err) {
                 errors.error500(res, err);
             }
     },
+    //ok 
     creatCompany : async (req,res) => {
-        const code_company = req.body.code_company;
-        const name = req.body.name
-        const symbol = req.body.symbol
-        const entry_price = req.body.entry_price
-        const logo = req.body.logo
+
+        const companyInfo = {
+        
+        name : req.body.name,
+        symbol : req.body.symbol,
+        entryprice : req.body.entryprice,
+        
+        }
+
+        console.log(companyInfo)
         
         try {
-            const oneCompany = await companyDatamapper.create({name, symbol, entry_price, logo, code_company })
+            const oneCompany = await companyDatamapper.create(companyInfo)
             res.json(oneCompany)
             }catch(err) {
                 errors.error500(res, err);
             }
     },
+    //ok
     deleteCompany :  async (req,res) => {
         const companyId = Number(req.params.companyId);
         try {
-            const deleteCompany = await companyDatamapper.findByPk(companyId,{
-                include:  Watch_list
-            })
-            await deleteCompany.destroy()
+            const deleteCompany = await companyDatamapper.delete(companyId)
             res.json(deleteCompany)
             }catch(err) {
                 errors.error500(res, err);
             }
     },
+    //ok
     updateEntryPrice : async (req,res) => {
-        const companyId = Number(req.params.companyId);
+        const id = req.params.companyId;
        
-        const enteryPriceData = {
-            entry_price: req.body.entry_price, 
+        const entryPriceData = {
+            entryprice: req.body.entryprice, 
+            name:req.body.name,
             symbol : req.body.symbol
-            
         }
+        console.log(entryPriceData)
         try {
-            const entryPrice = await companyDatamapper.findByPk(companyId);
-            
-            await entryPrice.update(enteryPriceData);
-            res.json(entryPrice)
+            const updateEntryPrice = await companyDatamapper.update({id}, entryPriceData);
+            console.log(updateEntryPrice)
+            res.json(updateEntryPrice)
         } catch(err) {
             errors.error500(res, err);
         }
     },
-    findCompanyWithSymbol : async (req,res) => {
+    //ok
+    findCompanyWithSymbol : async (req,res) => { 
         
         const symbol = req.params.symbol   
         console.log(symbol)
