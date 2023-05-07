@@ -47,7 +47,7 @@ const watchListController = {
             errors.error500(res, err);
         }
     },
-
+    //ok
     findOneListWithStocks : async (req,res) => {
         const listId = Number(req.params.listId);
 
@@ -58,6 +58,7 @@ const watchListController = {
             errors.error500(res, err);
         }
     },
+    //ok
     deleteList : async (req,res) => { 
         const listId = Number(req.params.listId);
 
