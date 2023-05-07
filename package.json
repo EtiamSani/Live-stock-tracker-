@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "node server.js",
     "dev": "DEBUG=* node server.js, db:pg"
   },
@@ -26,7 +26,9 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "finnhub": "^1.2.16",
+    "mocha": "^10.2.0",
     "multer": "^1.4.5-lts.1",
-    "pg": "^8.9.0"
+    "pg": "^8.9.0",
+    "supertest": "^6.3.3"
   }
 }
