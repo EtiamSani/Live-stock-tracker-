@@ -38,8 +38,6 @@ const watchListController = {
             name: req.body.name
           };
         
-        
-        
         try {
             const updatedList = await watchListDatamapper.update({ id}, inputData);
             res.json(updatedList);
