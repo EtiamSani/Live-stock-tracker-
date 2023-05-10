@@ -21,9 +21,9 @@ app.use( bodyParser.none() );
 const watchListRouter =require('./app/routers/watchListRouter')
 const companyRouter = require('./app/routers/companyRouter')
 const finnhubApiRouter = require('./app/routers/finnhubApiRouter')
+const routerAuth = require('./app/routers/authRouter');
 
-
-
+app.use('/auth', routerAuth);
 app.use('/watchlist',watchListRouter);
 app.use('/company',companyRouter);
 app.use('/tickersearch',finnhubApiRouter)

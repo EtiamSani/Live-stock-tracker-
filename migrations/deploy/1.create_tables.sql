@@ -31,7 +31,8 @@ CREATE TABLE "investor"
     "nickname" TEXT NOT NULL UNIQUE,
     "email" email NOT NULL UNIQUE,
     "updated_at" TIMESTAMPTZ DEFAULT NOW(), 
-    "password" TEXT NOT NULL 
+    "password" TEXT NOT NULL,
+    "profilpicture" TEXT NULL
 );
 
 
