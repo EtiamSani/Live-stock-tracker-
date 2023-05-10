@@ -1,10 +1,8 @@
 
-
-const companyDatamapper = require("../model/company");
 const watchListDatamapper = require("../model/watchList");
 const watchlistHasCompanyDatamapper = require("../model/watchListHasCompany");
-
 const errors = require('../modules/errors');
+
 // OK
 const watchListController = { 
     getAll : async (_,res) => {
@@ -82,7 +80,20 @@ const watchListController = {
             errors.error500(res, err);
           }
 
-}
+    },
+
+    deleteCompanyFromWatchlist : async (req,res) => {
+
+        const id = req.params.id 
+
+        try {
+            const companyToDelete = await watchlistHasCompanyDatamapper.delete(listId);
+            res.json(listToDelet);
+
+        } catch (err) {
+            errors.error500(res, err);
+        }
+    }
 }
 
 module.exports = watchListController

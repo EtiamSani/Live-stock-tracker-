@@ -63,7 +63,7 @@ const authController = {
         nickname,
         email,
         password : passwordCrypted,
-        profilpicture: 'public/images/profil-default.png', 
+        profilpicture: 'public/images/none.png', 
        
       }
       const createInvestor = await investorDatamapper.create(investorInfo);
