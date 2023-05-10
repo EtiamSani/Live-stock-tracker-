@@ -1,11 +1,10 @@
 const companyDatamapper = require("../model/company");
-const watchListDatamapper = require("../model/watchList");
 const errors = require('../modules/errors');
 
 
 const companyController = { 
 
-    getAllCompany : async (req,res) => {
+    getAllCompany : async (_,res) => {
         
         try {
             const getAllCompanies = await companyDatamapper.findAll()
