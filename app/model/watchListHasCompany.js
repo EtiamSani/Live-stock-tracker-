@@ -31,10 +31,23 @@ class WatchListHasCompany extends CoreDatamapper {
     }
 
     async addCompanyToWatchlist({companyId,watchlistId}) {
-        console.log(companyId,watchlistId)
+       
         const preparedQuery = {
             text: `INSERT INTO watchlist_has_company (company_id, watchlist_id)
             VALUES ($1,$2)
+            RETURNING * ;`,
+            values: [companyId,watchlistId],
+        };
+
+        const result = await this.client.query(preparedQuery);
+
+        return result.rows;
+    }
+
+    async deleteCompanyToWatchlist({companyId,watchlistId}) {
+        
+        const preparedQuery = {
+            text: `DELETE FROM watchlist_has_company WHERE company_id = $1 AND watchlist_id = $2
             RETURNING * ;`,
             values: [companyId,watchlistId],
         };

@@ -3,7 +3,7 @@ const watchListDatamapper = require("../model/watchList");
 const watchlistHasCompanyDatamapper = require("../model/watchListHasCompany");
 const errors = require('../modules/errors');
 
-// OK
+
 const watchListController = { 
     getAll : async (_,res) => {
         try {
@@ -13,7 +13,6 @@ const watchListController = {
             errors.error500(res, err);
         }
     },
-    // OK
     creatList : async (req,res) => {
        
         const newWatchListData = {
@@ -28,7 +27,6 @@ const watchListController = {
             errors.error500(res, err);
         }
     },
-    // OK 
     updateList : async (req,res) => {
         const id = req.params.listId;
         
@@ -43,7 +41,6 @@ const watchListController = {
             errors.error500(res, err);
         }
     },
-    //ok
     findOneListWithStocks : async (req,res) => {
         const listId = Number(req.params.listId);
 
@@ -54,7 +51,6 @@ const watchListController = {
             errors.error500(res, err);
         }
     },
-    //ok
     deleteList : async (req,res) => { 
         const listId = Number(req.params.listId);
 
@@ -66,14 +62,12 @@ const watchListController = {
             errors.error500(res, err);
         }
     },
-    //ok
     addCompanyInWatchlist : async (req,res) => {
 
         try {
             const watchlistId = req.params.listId;
             const companyId = req.params.companyId;
-            // Ajoutez l'entreprise existante à la liste de surveillance ici.
-            // Vous devez adapter cette partie en fonction de la structure de vos données et de vos relations de base de données.
+
             const watchListToFill = await watchlistHasCompanyDatamapper.addCompanyToWatchlist({companyId,watchlistId});
             res.json(watchListToFill);
           } catch (err) {
@@ -84,11 +78,12 @@ const watchListController = {
 
     deleteCompanyFromWatchlist : async (req,res) => {
 
-        const id = req.params.id 
+            const companyId = req.params.companyId;
+            const watchlistId = req.params.watchlistId;
 
         try {
-            const companyToDelete = await watchlistHasCompanyDatamapper.delete(listId);
-            res.json(listToDelet);
+            const companyToDelete = await watchlistHasCompanyDatamapper.deleteCompanyToWatchlist({companyId,watchlistId});
+            res.json(companyToDelete);
 
         } catch (err) {
             errors.error500(res, err);

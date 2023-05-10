@@ -5,7 +5,6 @@ const errors = require('../modules/errors');
 
 const companyController = { 
 
-    //ok
     getAllCompany : async (req,res) => {
         
         try {
@@ -16,7 +15,6 @@ const companyController = {
                 errors.error500(res, err);
             }
     },
-    //ok
     getOneCompany : async (req,res) => {
         const companyId = Number(req.params.companyId);
         try {
@@ -27,7 +25,6 @@ const companyController = {
                 errors.error500(res, err);
             }
     },
-    //ok 
     creatCompany : async (req,res) => {
 
         const companyInfo = {
@@ -47,7 +44,6 @@ const companyController = {
                 errors.error500(res, err);
             }
     },
-    //ok
     deleteCompany :  async (req,res) => {
         const companyId = Number(req.params.companyId);
         try {
@@ -57,7 +53,6 @@ const companyController = {
                 errors.error500(res, err);
             }
     },
-    //ok
     updateEntryPrice : async (req,res) => {
         const id = req.params.companyId;
        
@@ -75,12 +70,9 @@ const companyController = {
             errors.error500(res, err);
         }
     },
-    //ok
     findCompanyWithSymbol : async (req,res) => { 
         
         const symbol = req.params.symbol   
-        console.log(symbol)
-        
         const findCompanyWithSymbol = await companyDatamapper.findCompanyBySymbol(symbol)
         res.json(findCompanyWithSymbol)
     }
