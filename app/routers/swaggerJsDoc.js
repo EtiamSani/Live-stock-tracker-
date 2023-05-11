@@ -262,6 +262,18 @@
  *     summary: Create a Watchlist
  *     tags: [Watchlist]
  *     parameters:
+ *      - in: path
+ *        name: name
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: name that we want to give to the new watchlist
+ *      - in: path
+ *        name: investor_id
+ *        schema:
+ *          type: integer
+ *        required: true
+ *        description: watchlist attached to an investor by id
  *     responses:
  *       200:
  *         description: Creat a new watchlist
