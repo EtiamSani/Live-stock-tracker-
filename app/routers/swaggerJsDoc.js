@@ -110,67 +110,143 @@
  *               $ref: '#/components/schemas/Login'
  *       500:
  *         description: Some server error
- * /book/{id}:
+ * /company:
  *   get:
- *     summary: Get the book by id
- *     tags: [Books]
+ *     summary: Get all companies
+ *     tags: [Companies]
  *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: The book id
  *     responses:
  *       200:
- *         description: The book response by id
+ *         description: All the companies
  *         contens:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/authentification'
+ *               $ref: '#/components/schemas/Companies'
  *       404:
- *         description: The book was not found
+ *         description: Comany has not been found
+ * 
+ *   post:
+ *     summary: Create a company
+ *     tags: [Companies]
+ *     parameters:
+ *      - in: path
+ *        name: symbol
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The company ticker
+ *      - in: path
+ *        name: name
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The company name
+ *      - in: path
+ *        name: entry price
+ *        schema:
+ *          type: integer
+ *        required: true
+ *        description: The price that we want to buy the company's share
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Companies'
+ *     responses:
+ *       200:
+ *         description: Company created.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Companies'
+ *       500:
+ *         description: Some server error
+ *  
+ * /company/{id}:
  *   put:
- *    summary: Update the book by the id
- *    tags: [Books]
+ *    summary: Update the company by the id
+ *    tags: [Companies]
  *    parameters:
  *      - in: path
  *        name: id
  *        schema:
- *          type: string
+ *          type: integer
  *        required: true
- *        description: The book id
+ *        description: The company id
  *    requestBody:
  *      required: true
  *      content:
  *        application/json:
  *          schema:
- *            $ref: '#/components/schemas/Books'
+ *            $ref: '#/components/schemas/Companies'
  *    responses:
  *      200:
- *        description: The book was updated
+ *        description: The company was updated
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/Books'
+ *              $ref: '#/components/schemas/Companies'
  *      404:
  *        description: The book was not found
  *      500:
  *        description: Some error happened
- *   delete:
- *     summary: Remove the book by id
- *     tags: [Books]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: The book id
- *
- *     responses:
- *       200:
- *         description: The book was deleted
- *       404:
- *         description: The book was not found
+ *   get:
+ *    summary: Get the company by the id
+ *    tags: [Companies]
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: integer
+ *        required: true
+ *        description: The company id
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Companies'
+ *    responses:
+ *      200:
+ *        description: The company was updated
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Companies'
+ *      404:
+ *        description: The book was not found
+ *      500:
+ *        description: Some error happened
+ * /company/{symbol}:
+ *   get:
+ *    summary: find company by symbol
+ *    tags: [Companies]
+ *    parameters:
+ *      - in: path
+ *        name: symbol
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The company ticker
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Companies'
+ *    responses:
+ *      200:
+ *        description: The company has ben found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Companies'
+ *      404:
+ *        description: company not founded
+ *      500:
+ *        description: Some error happened
+ * 
+ *   
+ *   
  */
