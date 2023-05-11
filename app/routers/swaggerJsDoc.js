@@ -69,9 +69,6 @@
 
 /**
  * @swagger
- * tags:
- *   name: Authentification
- *   description: To create a new account
  * /auth/register-investor:
  *   post:
  *     summary: Create a new account
@@ -247,6 +244,142 @@
  *      500:
  *        description: Some error happened
  * 
- *   
- *   
+ * /watchlist:
+ *   get:
+ *     summary: Get all Watchlist
+ *     tags: [Watchlist]
+ *     parameters:
+ *     responses:
+ *       200:
+ *         description: All the watchlist
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Watchlist'
+ *       404:
+ *         description: Watchlist has not been found
+ *   post:
+ *     summary: Create a Watchlist
+ *     tags: [Watchlist]
+ *     parameters:
+ *     responses:
+ *       200:
+ *         description: Creat a new watchlist
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Watchlist'
+ *       404:
+ *         description: Watchlist has not been found
+ * /watchlist/{id}:
+ *   put:
+ *     summary: update the name of a Watchlist
+ *     tags: [Watchlist]
+ *     parameters:
+ *     responses:
+ *       200:
+ *         description: update the name of a Watchlist
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Watchlist'
+ *       404:
+ *         description: Watchlist has not been found
+ *   delete:
+ *     summary: delete a watchlist
+ *     tags: [Watchlist]
+ *     parameters:
+ *     responses:
+ *       200:
+ *         description: delete a watchlist
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Watchlist'
+ *       404:
+ *         description: Watchlist has not been found
+ *   get:
+ *     summary: Get a watchlist with id
+ *     tags: [Watchlist]
+ *     parameters:
+ *     responses:
+ *       200:
+ *         description: Get a watchlist with id
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Watchlist'
+ *       404:
+ *         description: Watchlist has not been found
+ * 
+ * /watchlist/{id}/company/{id}:
+ *   post:
+ *     summary: add a new company to watchlist
+ *     tags: [Watchlist]
+ *     parameters:
+ *     responses:
+ *       200:
+ *         description: add a new company to watchlist
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Watchlist'
+ *       404:
+ *         description: Watchlist has not been found
+ *   delete:
+ *     summary: delete a company from watchlist
+ *     tags: [Watchlist]
+ *     parameters:
+ *     responses:
+ *       200:
+ *         description: delete a company from watchlist
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Watchlist'
+ *       404:
+ *         description: Watchlist has not been found
+ * 
+ * /tickersearch/{caractertosearch}:
+ *   get:
+ *     summary: Look for a company in finnhub API
+ *     tags: [Finnhub API]
+ *     parameters:
+ *     responses:
+ *       200:
+ *         description: useful for autocompletion bar
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Finnhub'
+ *       404:
+ *         description: Watchlist has not been found
+ * /tickersearch/price/{symbol}:
+ *   get:
+ *     summary: get realtime price of stocks from finnhub API (websocket). Realtime price only avaible for us stocks
+ *     tags: [Finnhub API]
+ *     parameters:
+ *     responses:
+ *       200:
+ *         description: realtime price of stocks
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Finnhub'
+ *       404:
+ *         description: Watchlist has not been found
+ * /tickersearch/logo/{symbol}:
+ *   get:
+ *     summary: get companies logo from finnhub API
+ *     tags: [Finnhub API]
+ *     parameters:
+ *     responses:
+ *       200:
+ *         description: get companies logo
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Finnhub'
+ *       404:
+ *         description: Watchlist has not been found
  */
