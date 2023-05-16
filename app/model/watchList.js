@@ -46,6 +46,21 @@ class WatchList extends CoreDatamapper {
         return result.rows;
     }
 
+    async findAllWatchlistOfAnInvestor(id) {
+        const preparedQuery = {
+            text: `SELECT  w.name, w.id
+            FROM watchlist w 
+			JOIN investor i ON i.id = w.investor_id
+            WHERE i.id = $1;`,
+            values: [id],
+        };
+
+        const result = await this.client.query(preparedQuery);
+
+        return result.rows;
+    }
+
+
 }
 
 module.exports = new WatchList(client);

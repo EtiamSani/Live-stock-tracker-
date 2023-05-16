@@ -88,7 +88,21 @@ const watchListController = {
         } catch (err) {
             errors.error500(res, err);
         }
+    },
+
+    findAllWatchlistOfAnInvestor : async (req,res) => {
+
+        const investorId = req.params.investorId;
+        
+
+    try {
+        const investorWatchList = await watchListDatamapper.findAllWatchlistOfAnInvestor(investorId);
+        res.json(investorWatchList);
+
+    } catch (err) {
+        errors.error500(res, err);
     }
+}
 }
 
 module.exports = watchListController
