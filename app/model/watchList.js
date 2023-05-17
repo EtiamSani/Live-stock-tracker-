@@ -21,7 +21,7 @@ class WatchList extends CoreDatamapper {
 
     async findCompaniesInWatchlist(id) {
         const preparedQuery = {
-            text: `SELECT c.name, c.symbol, c.name
+            text: `SELECT c.name, c.symbol, c.name, c.id, c.entryprice
             FROM company c 
 			JOIN watchlist_has_company whc ON whc.company_id = c.id 
 			JOIN watchlist w ON w.id = whc.watchlist_id

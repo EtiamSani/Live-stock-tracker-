@@ -17,8 +17,8 @@ CHECK (
 CREATE TABLE "company" 
 (
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "name" TEXT NOT NULL,
-    "symbol" TEXT NOT NULL,
+    "name" TEXT NULL,
+    "symbol" TEXT NULL,
     "updated_at" TIMESTAMPTZ DEFAULT NOW(), 
     "entryprice" positif NULL
 );
