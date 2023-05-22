@@ -54,6 +54,18 @@ class WatchListHasCompany extends CoreDatamapper {
 
     return result.rows;
   }
+
+  async deleteWithCompanies(listId) {
+    const preparedQuery = {
+      text: `DELETE FROM watchlist_has_company WHERE watchlist_id = $1
+            RETURNING * ;`,
+      values: [listId],
+    };
+
+    const result = await this.client.query(preparedQuery);
+
+    return result.rows;
+  }
 }
 
 module.exports = new WatchListHasCompany(client);

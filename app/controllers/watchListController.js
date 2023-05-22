@@ -58,6 +58,17 @@ const watchListController = {
       errors.error500(res, err);
     }
   },
+  deleteListWithCompanies: async (req, res) => {
+    const listId = Number(req.params.listId);
+
+    try {
+      const listToDelet =
+        await watchlistHasCompanyDatamapper.deleteWithCompanies(listId);
+      res.json(listToDelet);
+    } catch (err) {
+      errors.error500(res, err);
+    }
+  },
   addCompanyInWatchlist: async (req, res) => {
     try {
       const watchlistId = req.params.listId;

@@ -11,6 +11,10 @@ watchListRouter.get(
 );
 watchListRouter.get("/:listId", watchListController.findOneListWithStocks);
 watchListRouter.delete("/:listId", watchListController.deleteList);
+watchListRouter.delete(
+  "/deletewithcompanies/:listId",
+  watchListController.deleteListWithCompanies
+);
 watchListRouter.post(
   "/:listId/company/:companyId",
   watchListController.addCompanyInWatchlist

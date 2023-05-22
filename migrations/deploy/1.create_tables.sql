@@ -47,7 +47,9 @@ CREATE TABLE "watchlist"
 CREATE TABLE "watchlist_has_company"
 (   
     "company_id" INT references company(id),
-    "watchlist_id" INT references watchlist(id)
+    "watchlist_id" INT references watchlist(id),
+    PRIMARY KEY (company_id, watchlist_id),
+    FOREIGN KEY (watchlist_id) REFERENCES watchlist(id) ON DELETE CASCADE
 
 );
 
