@@ -1,5 +1,6 @@
 [![GitHub commits](https://badgen.net/github/commits/etiamsani/Live-stock-tracker-backend)](https://GitHub.com/EtiamSani/Live-stock-tracker-backend/commit/)
 [![GitHub latest commit](https://badgen.net/github/last-commit/EtiamSani/Live-stock-tracker-backend)](https://GitHub.com/EtiamSani/Live-stock-tracker-backend/commit/)
+
 # Smart stocktracker API 
 
 
@@ -7,6 +8,7 @@
 
 
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Insomnia](https://img.shields.io/badge/Insomnia-black?style=for-the-badge&logo=insomnia&logoColor=5849BE)
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
