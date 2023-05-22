@@ -1,5 +1,5 @@
-[![GitHub commits](https://badgen.net/github/commits/etiamsani/Project-my-therapist-back)](https://GitHub.com/EtiamSani/Project-my-therapist-back/commit/)
-[![GitHub latest commit](https://badgen.net/github/last-commit/EtiamSani/Project-my-therapist-back)](https://GitHub.com/EtiamSani/Project-my-therapist-back/commit/)
+[![GitHub commits](https://badgen.net/github/commits/etiamsani/Project-my-therapist-back)](https://GitHub.com/EtiamSani/Live-stock-tracker-/commit/)
+[![GitHub latest commit](https://badgen.net/github/last-commit/EtiamSani/Project-my-therapist-back)](https://GitHub.com/EtiamSani/Live-stock-tracker-/commit/)
 # Smart stocktracker API 
 
 
