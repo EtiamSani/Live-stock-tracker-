@@ -1,5 +1,5 @@
-[![GitHub commits](https://badgen.net/github/commits/etiamsani/Live-stock-tracker-)](https://GitHub.com/EtiamSani/Live-stock-tracker-/commit/)
-[![GitHub latest commit](https://badgen.net/github/last-commit/EtiamSani/Live-stock-tracker-)](https://GitHub.com/EtiamSani/Live-stock-tracker-/commit/)
+[![GitHub commits](https://badgen.net/github/commits/etiamsani/Live-stock-tracker-backend)](https://GitHub.com/EtiamSani/Live-stock-tracker-backend/commit/)
+[![GitHub latest commit](https://badgen.net/github/last-commit/EtiamSani/Live-stock-tracker-backend)](https://GitHub.com/EtiamSani/Live-stock-tracker-backend/commit/)
 # Smart stocktracker API 
 
 
