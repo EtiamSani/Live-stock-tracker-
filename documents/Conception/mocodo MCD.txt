@@ -1,7 +1,7 @@
-COMPANY : code_company, name, symbol, entery_price
-BELONG, ON COMPANY, ON WATCH_LIST
-WATCH_LIST : code_list,name
-HAVE, 0N USER, ON WATCH_LIST
-USER : code_user, nickname, email , password
+COMPANY : code_company, name, symbol, entry price
+BELONG, ON COMPANY, ON WATCHLIST
+WATCHLIST : code_list,name,investor_id
+HAVE, 0N INVESTOR, 11 WATCHLIST
+INVESTOR : code_user, nickname, email , password, profilpicture
 
 wireframe link : https://wireframe.cc/MbqLEM
