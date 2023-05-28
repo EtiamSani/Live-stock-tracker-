@@ -27,8 +27,6 @@ const companyController = {
       entryprice: req.body.entryprice,
     };
 
-    console.log(companyInfo);
-
     try {
       const oneCompany = await companyDatamapper.create(companyInfo);
       res.json(oneCompany);
@@ -51,13 +49,13 @@ const companyController = {
     const entryPriceData = {
       entryprice: req.body.entryprice,
     };
-    console.log(entryPriceData);
+
     try {
       const updateEntryPrice = await companyDatamapper.update(
         { id },
         entryPriceData
       );
-      console.log(updateEntryPrice);
+
       res.json(updateEntryPrice);
     } catch (err) {
       errors.error500(res, err);
