@@ -96,6 +96,20 @@ const investorController = {
       );
     }
   },
+  async getOneInvestor(req, res, next) {
+    const id = req.params.id;
+    try {
+      const findInvestor = await investorDatamapper.findByPk(id);
+      res.json(findInvestor);
+    } catch {
+      next(
+        new APIError(
+          "Erreur lors de la récupération d'un investisseur via son id",
+          500
+        )
+      );
+    }
+  },
 };
 
 module.exports = investorController;
