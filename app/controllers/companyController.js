@@ -24,6 +24,7 @@ const companyController = {
     const companyInfo = {
       name: req.body.name,
       symbol: req.body.symbol,
+      logo: req.body.logo,
       entryprice: req.body.entryprice,
     };
 
