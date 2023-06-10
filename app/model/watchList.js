@@ -25,7 +25,7 @@ class WatchList extends CoreDatamapper {
             FROM company c 
 			JOIN watchlist_has_company whc ON whc.company_id = c.id 
 			JOIN watchlist w ON w.id = whc.watchlist_id
-            WHERE w.id = $1;`,
+            WHERE w.id = $1  ORDER BY c.id;`,
       values: [id],
     };
 
