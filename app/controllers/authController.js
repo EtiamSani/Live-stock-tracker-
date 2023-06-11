@@ -7,7 +7,7 @@ const authController = {
   /**
    * registration of investor
    */
-  async registerTherapist(req, res, next) {
+  async registerInvestor(req, res, next) {
     // retrieve body data
     const { nickname, email, password, confirmPassword } = req.body;
 
