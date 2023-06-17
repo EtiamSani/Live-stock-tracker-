@@ -7,6 +7,5 @@ finnhubApiRouter.get(
   "/price/:symbol",
   finnhubApiController.searchedCompanyPriceInformations
 );
-finnhubApiRouter.get("/logo/:symbol", finnhubApiController.companyLogo);
 
 module.exports = finnhubApiRouter;
