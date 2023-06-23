@@ -1,7 +1,7 @@
 # Je prends l'identité admin_ocolis
-export PGUSER=spedata
+# export PGUSER=spedata
 
 
-# sqitch deploy
+sqitch deploy
 # sqitch deploy 1.create_tables
-sqitch deploy 2.companies_in_market
+# sqitch deploy 2.companies_in_market
