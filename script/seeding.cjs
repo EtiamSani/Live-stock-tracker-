@@ -1,25 +1,7 @@
-// const dotenv = require("dotenv");
-// dotenv.config();
-// const { Pool } = require("pg");
-// const pool = new Pool();
-
+const dotenv = require("dotenv");
+dotenv.config();
 const { Pool } = require("pg");
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL, // Utilisez l'URL de connexion fournie par Heroku
-  ssl: {
-    rejectUnauthorized: false, // Nécessaire si vous utilisez SSL avec Heroku (valeur par défaut)
-  },
-});
-
-pool.connect(function (err) {
-  if (err) {
-    console.error("Erreur lors de la connexion à la base de données", err);
-  } else {
-    console.log("Connecté à la base de données");
-    // Vous pouvez maintenant exécuter des requêtes sur la base de données en utilisant le pool
-  }
-});
+const pool = new Pool();
 
 // const { faker } = require("@faker-js/faker");
 // faker.locale = "fr";
