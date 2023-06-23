@@ -8,7 +8,7 @@
     "start": "node server.js",
     "dev": "DEBUG=* node server.js, db:pg",
     "seeding": "node script/seeding.js",
-    "tables": "bash migrations/3.deploy.sh"
+    "tables": "bash migrations/deploy/1create_tables.sql && 2.companies_in_market.sql"
   },
   "repository": {
     "type": "git",
