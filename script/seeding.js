@@ -1,7 +1,15 @@
-const dotenv = require("dotenv");
-dotenv.config();
-const { Pool } = require("pg");
-const pool = new Pool();
+// const dotenv = require("dotenv");
+// dotenv.config();
+// const { Pool } = require("pg");
+// const pool = new Pool();
+
+const { Pool, Client } = require("pg");
+const connectionString =
+  "postgres://hhemypufvprmvs:1bf01b707b008e5e6e88fb4986d686e9543eb8630c6f47c1bd60dbaa6e7419c8@ec2-54-78-142-10.eu-west-1.compute.amazonaws.com:5432/d85oqe6g8lbajd";
+
+const pool = new Pool({
+  connectionString: connectionString,
+});
 
 // const { faker } = require("@faker-js/faker");
 // faker.locale = "fr";
