@@ -3,12 +3,22 @@
 // const { Pool } = require("pg");
 // const pool = new Pool();
 
-const { Pool, Client } = require("pg");
-const connectionString =
-  "postgres://hhemypufvprmvs:1bf01b707b008e5e6e88fb4986d686e9543eb8630c6f47c1bd60dbaa6e7419c8@ec2-54-78-142-10.eu-west-1.compute.amazonaws.com:5432/d85oqe6g8lbajd";
+const { Client } = require("pg");
 
-const pool = new Pool({
-  connectionString: connectionString,
+const client = new Client({
+  connectionString: process.env.DATABASE_URL, // Utilisez l'URL de connexion fournie par Heroku
+  ssl: {
+    rejectUnauthorized: false, // Nécessaire si vous utilisez SSL avec Heroku (valeur par défaut)
+  },
+});
+
+client.connect(function (err) {
+  if (err) {
+    console.error("Erreur lors de la connexion à la base de données", err);
+  } else {
+    console.log("Connecté à la base de données");
+    // Vous pouvez maintenant exécuter des requêtes sur la base de données
+  }
 });
 
 // const { faker } = require("@faker-js/faker");
