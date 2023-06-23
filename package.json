@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha",
     "start": "node server.js",
-    "dev": "DEBUG=* node server.js, db:pg"
+    "dev": "DEBUG=* node server.js, db:pg",
+    "seeding": "node script/seeding.js"
   },
   "repository": {
     "type": "git",
