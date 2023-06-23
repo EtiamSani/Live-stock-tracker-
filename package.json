@@ -7,7 +7,7 @@
     "test": "mocha",
     "start": "node server.js",
     "dev": "DEBUG=* node server.js, db:pg",
-    "build": "node script/sedding.cjs"
+    "build": "node script/seeding.cjs"
   },
   "repository": {
     "type": "git",
